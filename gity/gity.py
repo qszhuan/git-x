@@ -70,7 +70,7 @@ def main():
     elif args.merge:
         gity.m(args.merge)
     else:
-        pass
+        parser.print_help()
 
     
 
