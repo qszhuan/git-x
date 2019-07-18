@@ -31,7 +31,7 @@ class Gity:
         if(_from is None):
             raise "Please choose source branch"
         
-        currentBranch = os.popen('git symbolic-ref --short HEAD').read().trim()
+        currentBranch = os.popen('git symbolic-ref --short HEAD').read().strip()
         print(f"Current branch: {currentBranch}")
         os.system(f'git checkout {_from}')
         print(f"Pull branch {_from} latest code...")
@@ -39,8 +39,8 @@ class Gity:
         print(f"Go back to {currentBranch}.")
         os.system(f'git checkout {currentBranch}')
 
-        print(f"Merging {branch} into {currentBranch} ...")
-        os.system(f"git merge {branch}")
+        print(f"Merging {_from} into {currentBranch} ...")
+        os.system(f"git merge {_from}")
 
     def b(self):
         pass
@@ -53,6 +53,7 @@ def init_parser():
     group.add_argument("-st", "--status", action="store_true", help="git status")
     group.add_argument("-p", "--pull", action="store_true",  help="git pull --rebase")
     group.add_argument("-llg", "--logn", help="git log --oneline -n *")
+    group.add_argument("-m", "--merge", help="git merge [from]")
     return parser
 
 def main():
@@ -66,6 +67,10 @@ def main():
         gity.p()
     elif args.logn:
         gity.llg(args.logn)
+    elif args.merge:
+        gity.m(args.merge)
+    else:
+        pass
 
     
 
