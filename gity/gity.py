@@ -23,6 +23,9 @@ class Gity:
     
     def p(self):
         os.system('git pull --rebase')
+
+    def co(self, params):
+        os.system(f'git checkout {params}')
     
     def llg(self, n):
         os.system(f'git log --oneline -n {n}')
@@ -32,6 +35,7 @@ class Gity:
             raise "Please choose source branch"
         
         currentBranch = os.popen('git symbolic-ref --short HEAD').read().strip()
+        print(f'Merging the code from {_from} to {currentBranch}')
         print(f"Current branch: {currentBranch}")
         os.system(f'git checkout {_from}')
         print(f"Pull branch {_from} latest code...")
@@ -50,6 +54,7 @@ def init_parser():
     parser = argparse.ArgumentParser(description='git extensions',
                                      epilog='try replace gity with git')
     group = parser.add_mutually_exclusive_group()
+    
     group.add_argument("-st", "--status", action="store_true", help="git status")
     group.add_argument("-p", "--pull", action="store_true",  help="git pull --rebase")
     group.add_argument("-llg", "--logn", help="git log --oneline -n *")
