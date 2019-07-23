@@ -1,17 +1,29 @@
-dist: xenial   # required for Python >= 3.7
+
 language: python
 python:
   - "3.3"
   - "3.4"
   - "3.5"
   - "3.6"
-  - "3.7"
-  - "3.7-dev"  # 3.7 development branch
-  - "3.8-dev"  # 3.8 development branch
-  - "nightly"  # nightly build
   # does not have headers provided, please ask https://launchpad.net/~pypy/+archive/ppa
   # maintainers to fix their pypy-dev package.
   - "pypy"
+
+matrix:
+  include:
+    - name: "Python 3.7 on Xenial Linux"
+      python: 3.7           # this works for Linux but is ignored on macOS or Windows
+      dist: xenial          # required for Python >= 3.7
+    - name: "Python 3.7-dev on Xenial Linux"
+      python: 3.7-dev          # this works for Linux but is ignored on macOS or Windows
+      dist: xenial          # required for Python >= 3.7
+    - name: "Python 3.8-dev on Xenial Linux"
+      python: 3.8-dev           # this works for Linux but is ignored on macOS or Windows
+      dist: xenial          # required for Python >= 3.7
+    - name: "Python nightly on Xenial Linux"
+      python: nightly           # this works for Linux but is ignored on macOS or Windows
+      dist: xenial          # required for Python >= 3.7
+
 # command to install dependencies
 install:
   - pip install ./gity
