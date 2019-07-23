@@ -70,10 +70,6 @@ setup(
         'Programming Language :: Python :: 3.8',
     ],
 
-    
-    classifiers=[
-        'License :: OSI Approved :: Python Software Foundation License'
-    ],
     py_modules=["gity", "git_st", 'git_p', "utils"],
 
     entry_points={
