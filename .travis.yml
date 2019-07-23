@@ -11,7 +11,7 @@ python:
   - "pypy"
 # command to install dependencies
 install:
-  - pip install .
+  - pip install ./gity
   - pip install Pygments
 # command to run tests
 script: nosetests
