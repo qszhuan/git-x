@@ -19,7 +19,7 @@ init(autoreset=True)
 class Gity:
     def __init__(self):
         pass
-                
+
     def st(self):
         call('git status')
     
@@ -27,7 +27,11 @@ class Gity:
         cmd = 'git pull --rebase'
         print_info(f"Pull latest code ...[{cmd}]")
         call(cmd)
-
+    
+    def up(self):
+        current_branch = self._current_branch()
+        call(f"git push --set-upstream origin {current_branch}")
+        
     def co(self, params):
         print_info(f'Checking out {params} ... ')
         call(f'git checkout {params}')
@@ -51,26 +55,6 @@ class Gity:
         pr_url = f"{remote_url}/compare/{to_branch}...{current_branch}?expand=1"
         open_url(pr_url)
 
-
-    #     if(-not (test-path .git)){
-    #     write-host "This is not a git repo" -f red
-    #     return
-    # }
-    # $remoteUrl = (git config --get remote.origin.url).TrimEnd('.git')
-    # write-host "Remote: $remoteUrl" -f green
-
-    # $currentBranch = git rev-parse --abbrev-ref HEAD
-    # $currentBranch = $currentBranch.trim()
-    # write-host "Current branch: $currentBranch" -f green
-
-    # if($remoteUrl.StartsWith("git@github.com:")){
-    #     $remoteUrl = $remoteUrl.Replace("git@github.com:", "https://github.com/")
-    # }
-    # if($aimTo -eq $currentBranch){
-    #     write-host "You are trying to create pull request against the same branch" -f red
-    #     return
-    # }
-    # start "$remoteUrl/compare/$aimTo...$($currentBranch)?expand=1"
     def _current_branch(self):
         branch = popen('git name-rev --name-only HEAD')
         print_info(f'Current branch: {branch}')
