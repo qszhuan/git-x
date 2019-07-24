@@ -1,16 +1,21 @@
 from gity import Gity
 import argparse
 import sys
+from utils import *
 
 def init_parser():
-    parser = argparse.ArgumentParser(description='This is an alias for "git checkout"',
+    parser = argparse.ArgumentParser(description=info(f'This is an alias for "git checkout"'),
                                      epilog='')
     return parser
 
 def main():
     args = sys.argv
     gity = Gity()
-    print(f'xx {args}')
+    
+    parser = init_parser()
+    if('-h' in args or '--help' in args):
+        parser.print_help()
+        exit()
     
     arg_str = ' '.join(map(str, args[1:])) 
     gity.co(arg_str)

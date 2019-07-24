@@ -1,14 +1,11 @@
 from gity import Gity
 import argparse
-
-from colorama import Fore, Back, Style
-from colorama import init
-from termcolor import colored
+from utils import *
 
 def init_parser():
-    parser = argparse.ArgumentParser(description='git extensions',
+    parser = argparse.ArgumentParser(description=info('Merge the latest n commits from another branch into current branch.'),
                                      epilog='Merge the latest code from another branch.')
-    parser.add_argument("branch", type=str, help="The branch you want to merge from")
+    parser.add_argument("branch", type=str, help=info("The branch you want to merge from"))
     return parser
 
 def main():

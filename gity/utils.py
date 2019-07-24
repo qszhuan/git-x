@@ -25,3 +25,31 @@ def call(command, exitOnError=True):
 
 def popen(command):
     return os.popen(command).read().strip()
+
+def colored_decorator(color):
+    def decorator(func):
+        def wrapper(output):
+            return colored(func(output), color)
+        return wrapper
+    return decorator
+
+@colored_decorator('cyan')
+def verbose(output):
+    return output
+
+@colored_decorator('green')
+def info(output):
+    return output
+
+@colored_decorator('red')
+def error(output):
+    return output
+
+def print_verbose(output):
+    print(verbose(output))
+
+def print_info(output):
+    print(info(output))
+
+def print_error(output):
+    print(error(output))
