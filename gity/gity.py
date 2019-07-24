@@ -53,11 +53,11 @@ class Gity:
             
         call(f'git commit -m "{comment}"')
 
-    def cia(self, comment):
+    def cia(self, comment, exclude):
         if(comment is None or comment == ''):
             raise Exception(error(f'Please add a valid comment.'))
-        call('git add .')
-        call(f'git commit -a {comment}')
+        self.a('.', exclude)
+        call(f'git commit -am "{comment}"')
     
     def llg(self, n = 5):
         cmd = f'git log --oneline -n {n}'
