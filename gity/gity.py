@@ -51,7 +51,7 @@ class Gity:
             raise "Invalid parameter."
 
         currentBranch = self._current_branch()
-        print(colored(f"Current branch: {currentBranch}", 'cyan'))
+        print(colored(f"Current branch: {currentBranch}", 'green'))
         
         self.co(_from)
         self.p()

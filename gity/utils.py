@@ -17,6 +17,7 @@ class Platform(object):
         return sys.platform == 'darwin'
 
 def call(command, exitOnError=True):
+    print(colored(f'Execute [{command}]..', 'cyan'))
     if(subprocess.call(command)):
         print(colored(f"Error happened when running [{command}]", 'red'))
         if(exitOnError):
