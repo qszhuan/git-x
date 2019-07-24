@@ -1,7 +1,7 @@
 from gity import Gity
 import argparse
 import sys
-from utils import *
+from utils import info
 
 def init_parser():
     parser = argparse.ArgumentParser(description=info(f'This is an alias for "git checkout"'),

@@ -102,7 +102,7 @@ class Gity:
         os.system(f"git merge {_from}")
 
     def b(self):
-        pass
+        self._current_branch()
 
     def _current_branch(self):
         branch = popen('git name-rev --name-only HEAD')
