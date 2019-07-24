@@ -18,9 +18,8 @@ init(autoreset=True)
 
 class Gity:
     def __init__(self):
-        platform = Platform()
-        self.platform = platform
-        
+        pass
+                
     def st(self):
         call('git status')
     
@@ -38,9 +37,21 @@ class Gity:
         call(cmd)
 
     def pr(self, to_branch):
-        cmd = "git config --get remote.origin.url"
-        remote_url = popen(cmd).strip('.git')
-        print_info(f'Remote origin url: {remote_url}')
+        remote_url = self._remote_url().rstrip('.git')
+        current_branch = self._current_branch()
+        if(to_branch == current_branch):
+            print_error("Can't create pull request against the same branch")
+            exit()
+        else:
+            print_info(f"Creating PR from {current_branch} to {to_branch}")
+        
+        old_start = "git@github.com:"
+        if(remote_url.startswith(old_start)):
+            remote_url = remote_url.replace(old_start, "https://github.com/")
+        pr_url = f"{remote_url}/compare/{to_branch}...{current_branch}?expand=1"
+        open_url(pr_url)
+
+
     #     if(-not (test-path .git)){
     #     write-host "This is not a git repo" -f red
     #     return
@@ -61,7 +72,15 @@ class Gity:
     # }
     # start "$remoteUrl/compare/$aimTo...$($currentBranch)?expand=1"
     def _current_branch(self):
-        return popen('git symbolic-ref --short HEAD')
+        branch = popen('git name-rev --name-only HEAD')
+        print_info(f'Current branch: {branch}')
+        return branch
+
+    def _remote_url(self):
+        cmd = "git config --get remote.origin.url"
+        remote_url = popen(cmd)
+        print_info(f'Remote origin url: {remote_url}')
+        return remote_url
 
     def m(self, _from):
         if(_from is None):
@@ -72,7 +91,6 @@ class Gity:
             raise "Invalid parameter."
 
         currentBranch = self._current_branch()
-        print_info(f"Current branch: {currentBranch}")
         
         self.co(_from)
         self.p()
