@@ -36,6 +36,29 @@ class Gity:
         print_info(f'Checking out {params} ... ')
         call(f'git checkout {params}')
     
+    def a(self, include, exclude):
+        include_str = ' '.join(include) if include else None
+        if(include_str):
+            call(f'git add {include_str}')
+
+        exclude_str = ' '.join(exclude) if exclude else None
+        if(exclude_str):
+            call(f'git reset {exclude_str}')
+        
+    def ci(self, comment, include, exclude):
+        if(comment is None or comment == ''):
+            raise Exception(error(f'Please add a valid comment.'))
+
+        self.a(include, exclude)
+            
+        call(f'git commit -m "{comment}"')
+
+    def cia(self, comment):
+        if(comment is None or comment == ''):
+            raise Exception(error(f'Please add a valid comment.'))
+        call('git add .')
+        call(f'git commit -a {comment}')
+    
     def llg(self, n = 5):
         cmd = f'git log --oneline -n {n}'
         call(cmd)
@@ -54,17 +77,6 @@ class Gity:
             remote_url = remote_url.replace(old_start, "https://github.com/")
         pr_url = f"{remote_url}/compare/{to_branch}...{current_branch}?expand=1"
         open_url(pr_url)
-
-    def _current_branch(self):
-        branch = popen('git name-rev --name-only HEAD')
-        print_info(f'Current branch: {branch}')
-        return branch
-
-    def _remote_url(self):
-        cmd = "git config --get remote.origin.url"
-        remote_url = popen(cmd)
-        print_info(f'Remote origin url: {remote_url}')
-        return remote_url
 
     def m(self, _from):
         if(_from is None):
@@ -86,6 +98,19 @@ class Gity:
 
     def b(self):
         pass
+
+    def _current_branch(self):
+        branch = popen('git name-rev --name-only HEAD')
+        print_info(f'Current branch: {branch}')
+        return branch
+
+    def _remote_url(self):
+        cmd = "git config --get remote.origin.url"
+        remote_url = popen(cmd)
+        print_info(f'Remote origin url: {remote_url}')
+        return remote_url
+
+    
 
 
 def init_parser():
