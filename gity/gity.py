@@ -37,11 +37,11 @@ class Gity:
         call(f'git checkout {params}')
     
     def a(self, include, exclude):
-        include_str = ' '.join(include) if include else None
+        include_str = ' '.join(include) if isinstance (include, list) else include
         if(include_str):
             call(f'git add {include_str}')
 
-        exclude_str = ' '.join(exclude) if exclude else None
+        exclude_str = ' '.join(exclude) if isinstance (exclude, list) else exclude
         if(exclude_str):
             call(f'git reset {exclude_str}')
         
@@ -52,6 +52,11 @@ class Gity:
         self.a(include, exclude)
             
         call(f'git commit -m "{comment}"')
+
+    def amend(self, include, exclude, edit):
+        self.a(include, exclude)
+        cmd = 'git commit --amend --no-edit' if not edit else 'git commit --amend'
+        call(cmd)
 
     def cia(self, comment, exclude):
         if(comment is None or comment == ''):
