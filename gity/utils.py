@@ -1,4 +1,7 @@
 import sys
+import subprocess
+from termcolor import colored
+import os
 
 is_windows = sys.platform == 'win32' or sys.platform == 'cygwin'
 is_linux = 'linux' in sys.platform
@@ -12,3 +15,12 @@ class Platform(object):
         return 'linux' in sys.platform
     def is_mac(self):
         return sys.platform == 'darwin'
+
+def call(command, exitOnError=True):
+    if(subprocess.call(command)):
+        print(colored(f"Error happened when running [{command}]", 'red'))
+        if(exitOnError):
+            exit()
+
+def popen(command):
+    return os.popen(command).read().strip()

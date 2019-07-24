@@ -2,6 +2,7 @@ Pygments
 nose
 mock
 colorama
+termcolor
 
 pypandoc
 twine

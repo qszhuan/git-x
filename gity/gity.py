@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+from colorama import Fore, Back, Style
+from colorama import init
+from termcolor import colored
 
 import sys
 from pygments import highlight
@@ -12,6 +15,8 @@ import os
 
 import subprocess
 
+# use Colorama to make Termcolor work on Windows too
+init(autoreset=True)
 
 class Gity:
     def __init__(self):
@@ -19,31 +24,41 @@ class Gity:
         self.platform = platform
         
     def st(self):
-        os.system('git status')
+        call('git status')
     
     def p(self):
-        os.system('git pull --rebase')
+        cmd = 'git pull --rebase'
+        print(colored(f"Pull latest code ...[{cmd}]", 'green'))
+        call(cmd)
 
     def co(self, params):
-        os.system(f'git checkout {params}')
+        print(colored(f'Checking out {params} ... ', 'green'))
+        call(f'git checkout {params}')
     
     def llg(self, n):
-        os.system(f'git log --oneline -n {n}')
+        cmd = f'git log --oneline -n {n}'
+        call(cmd)
+
+    def _current_branch(self):
+        return popen('git symbolic-ref --short HEAD')
 
     def m(self, _from):
         if(_from is None):
-            raise "Please choose source branch"
+            raise "Please input source branch"
+
+        _from = _from.strip()
+        if(len(_from.split()) > 1):
+            raise "Invalid parameter."
+
+        currentBranch = self._current_branch()
+        print(colored(f"Current branch: {currentBranch}", 'cyan'))
         
-        currentBranch = os.popen('git symbolic-ref --short HEAD').read().strip()
-        print(f'Merging the code from {_from} to {currentBranch}')
-        print(f"Current branch: {currentBranch}")
-        os.system(f'git checkout {_from}')
-        print(f"Pull branch {_from} latest code...")
+        self.co(_from)
         self.p()
-        print(f"Go back to {currentBranch}.")
+        print(colored(f"Go back to {currentBranch}.", 'green'))
         os.system(f'git checkout {currentBranch}')
 
-        print(f"Merging {_from} into {currentBranch} ...")
+        print(colored(f'Merging the latest code from {_from} to {currentBranch} ...', 'green'))
         os.system(f"git merge {_from}")
 
     def b(self):
