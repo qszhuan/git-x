@@ -32,9 +32,10 @@ class Gity:
         current_branch = self._current_branch()
         call(f"git push --set-upstream origin {current_branch}")
         
-    def co(self, params):
-        print_info(f'Checking out {params} ... ')
-        call(f'git checkout {params}')
+    def co(self, branch, create_if_not_existed=False):
+        print_info(f'Checking out {branch} ... ')
+        create_option = "-b" if create_if_not_existed else ''
+        call(f'git checkout {create_option} {branch}')
     
     def a(self, include, exclude):
         include_str = ' '.join(include) if isinstance (include, list) else include
