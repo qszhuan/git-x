@@ -26,7 +26,7 @@ matrix:
 
 # command to install dependencies
 install:
-  - pip install ./gity
+  - pip install .
   - pip install Pygments
 # command to run tests
 script: nosetests
