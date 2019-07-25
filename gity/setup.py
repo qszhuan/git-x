@@ -1,15 +1,19 @@
 from setuptools import setup, find_packages
 
+import os
+
+git_scripts = [each for each in os.listdir() if each.startswith('git')]
+git_extensions = [each.split('.')[0] for each in git_scripts] 
+git_ex_entries = [f"{each.replace('_','-')}={each}:main" for each in git_extensions]
+
+with open("../README.md", "r") as fh:
+    long_description = fh.read()
+
 setup(
     name="Gity",
     version="0.1",
     packages=find_packages(),
-    scripts=['gity.py', 
-                'git-pr.py', 
-                'git_m.py', 
-                'git_st.py', 
-                'git_p.py',
-                'git_co.py'],
+    scripts=git_scripts,
 
     # Project uses reStructuredText, so ensure that the docutils get
     # installed or upgraded on the target machine
@@ -26,8 +30,9 @@ setup(
    # Author details
     author='Qingshan Zhuan',
     author_email='zhuanqingshan@gmail.com',
-
     description="A set of handy git extensions",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     keywords="git extension,git",
     url="https://github.com/qszhuan/gity",   # project home page, if any
     # project_urls={
@@ -50,7 +55,6 @@ setup(
         # Indicate who your project is intended for
         'Environment :: Console',
         'Intended Audience :: Developers',
-        'Intended Audience :: System Administrators',
         'Topic :: Utilities',
         'Topic :: Software Development',
         'Topic :: Terminals',
@@ -58,6 +62,8 @@ setup(
 
         # Pick your license as you wish (should match "license" above)
         'License :: OSI Approved :: MIT License',
+
+        "Operating System :: OS Independent",
 
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
@@ -70,15 +76,10 @@ setup(
         'Programming Language :: Python :: 3.8',
     ],
 
-    py_modules=["gity", "git_st", 'git_p', "utils"],
+    py_modules= git_extensions,
 
     entry_points={
-            'console_scripts': [
-                'git-p=git_p:main',
-                'git-st=git_st:main',
-                'gity=gity:main'
-            ],
+            'console_scripts': git_ex_entries,
         }
 
-    # could also include long_description, download_url, etc.
 )
