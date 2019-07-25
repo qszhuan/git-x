@@ -1,8 +1,7 @@
-Pygments
 nose
-mock
 colorama
 termcolor
+click
 
 pypandoc
 twine

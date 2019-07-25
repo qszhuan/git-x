@@ -2,11 +2,7 @@
 from colorama import init
 
 import sys
-from pygments import highlight
-from pygments.lexers import *
-from pygments.formatters import *
 import argparse
-from shutil import copyfile
 import datetime
 from utils import *
 import os
