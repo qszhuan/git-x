@@ -7,7 +7,7 @@ import sys
 # entry_points and scripts
 git_scripts = [each for each in os.listdir('.') if each.endswith('.py') and not each.startswith('setup')]
 git_extensions = [each.split('.')[0] for each in git_scripts] 
-git_ex_entries = [f"{each.replace('_','-')}={each}:main" for each in git_extensions if each.startswith('git')]
+git_ex_entries = ["{}={}:main".format(each.replace('_','-'), each) for each in git_extensions if each.startswith('git')]
 
 print(git_scripts, git_extensions, git_ex_entries)
 # README
