@@ -11,13 +11,13 @@ is_mac = sys.platform == 'darwin'
   
 def start(command):
     if(is_windows):
-        call(f"cmd /c start {command}")
+        call("cmd /c start {}".format(command))
     elif(is_mac):
-        call(f"open {command}")
+        call("open {}".format(command))
     elif(is_linux):
-        call(f"xdg-open {command}")
+        call("xdg-open {}".format(command))
     elif(is_cygwin):
-        call(f"cygstart {command}")
+        call("cygstart {}".format(command))
     else:
         raise Exception("Unknown platform")
 
@@ -30,14 +30,14 @@ def open_url(url):
         exit()
 
 def call(command, exitOnError=True):
-    print_verbose(f'Exec [{command}]')
+    print_verbose('Exec [{}]'.format(command))
     if(subprocess.call(command)):
-        print_error(f"Error happened when running [{command}]")
+        print_error("Error happened when running [{}]".format(command))
         if(exitOnError):
             exit()
 
 def popen(command):
-    print_verbose(f'Exec [{command}]')
+    print_verbose('Exec [{}]'.format(command))
     return os.popen(command).read().strip()
 
 def colored_decorator(color):

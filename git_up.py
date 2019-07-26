@@ -4,7 +4,7 @@ import sys
 from utils import *
 
 def init_parser():
-    parser = argparse.ArgumentParser(description=info(f'Create branch on remote if not existed and push codes'),
+    parser = argparse.ArgumentParser(description=info('Create branch on remote if not existed and push codes'),
                                      epilog='')
     return parser
 

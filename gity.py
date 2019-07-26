@@ -21,34 +21,34 @@ class Gity:
     
     def p(self):
         cmd = 'git pull --rebase'
-        print_info(f"Pull latest code ...[{cmd}]")
+        print_info("Pull latest code ...[{}]".format(cmd))
         call(cmd)
     
     def up(self):
         current_branch = self._current_branch()
-        call(f"git push --set-upstream origin {current_branch}")
+        call("git push --set-upstream origin {}".format(current_branch))
         
     def co(self, branch, create_if_not_existed=False):
-        print_info(f'Checking out {branch} ... ')
+        print_info('Checking out {} ... '.format(branch))
         create_option = "-b" if create_if_not_existed else ''
-        call(f'git checkout {create_option} {branch}')
+        call('git checkout {} {}'.format(create_option, branch))
     
     def a(self, include, exclude):
         include_str = ' '.join(include) if isinstance (include, list) else include
         if(include_str):
-            call(f'git add {include_str}')
+            call('git add {}'.format(include_str))
 
         exclude_str = ' '.join(exclude) if isinstance (exclude, list) else exclude
         if(exclude_str):
-            call(f'git reset {exclude_str}')
+            call('git reset {}'.format(exclude_str))
         
     def ci(self, comment, include, exclude):
         if(comment is None or comment == ''):
-            raise Exception(error(f'Please add a valid comment.'))
+            raise Exception(error('Please add a valid comment.'))
 
         self.a(include, exclude)
             
-        call(f'git commit -m "{comment}"')
+        call('git commit -m "{}"'.format(comment))
 
     def amend(self, include, exclude, edit):
         self.a(include, exclude)
@@ -57,12 +57,12 @@ class Gity:
 
     def cia(self, comment, exclude):
         if(comment is None or comment == ''):
-            raise Exception(error(f'Please add a valid comment.'))
+            raise Exception(error('Please add a valid comment.'))
         self.a('.', exclude)
-        call(f'git commit -am "{comment}"')
+        call('git commit -am "{}"'.format(comment))
     
     def llg(self, n = 5):
-        cmd = f'git log --oneline -n {n}'
+        cmd = 'git log --oneline -n {}'.format(n)
         call(cmd)
 
     def pr(self, to_branch):
@@ -72,12 +72,12 @@ class Gity:
             print_error("Can't create pull request against the same branch")
             exit()
         else:
-            print_info(f"Creating PR from {current_branch} to {to_branch}")
+            print_info("Creating PR from {} to {}".format(current_branch, to_branch))
         
         old_start = "git@github.com:"
         if(remote_url.startswith(old_start)):
             remote_url = remote_url.replace(old_start, "https://github.com/")
-        pr_url = f"{remote_url}/compare/{to_branch}...{current_branch}?expand=1"
+        pr_url = "{}/compare/{}...{}?expand=1".format(remote_url, to_branch, current_branch)
         open_url(pr_url)
 
     def m(self, _from):
@@ -92,24 +92,24 @@ class Gity:
         
         self.co(_from)
         self.p()
-        print_info(f"Go back to {currentBranch}.")
-        os.system(f'git checkout {currentBranch}')
+        print_info("Go back to {}.".format(currentBranch))
+        os.system('git checkout {}'.format(currentBranch))
 
-        print_info(f'Merging the latest code from {_from} to {currentBranch} ...')
-        os.system(f"git merge {_from}")
+        print_info('Merging the latest code from {} to {} ...'.format(_from, currentBranch))
+        os.system("git merge {}".format(_from))
 
     def b(self):
         self._current_branch()
 
     def _current_branch(self):
         branch = popen('git name-rev --name-only HEAD')
-        print_info(f'Current branch: {branch}')
+        print_info('Current branch: {}'.format(branch))
         return branch
 
     def _remote_url(self):
         cmd = "git config --get remote.origin.url"
         remote_url = popen(cmd)
-        print_info(f'Remote origin url: {remote_url}')
+        print_info('Remote origin url: {}'.format(remote_url))
         return remote_url
 
     

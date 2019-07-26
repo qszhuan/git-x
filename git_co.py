@@ -4,7 +4,7 @@ import sys
 from utils import info
 
 def init_parser():
-    parser = argparse.ArgumentParser(description=info(f'This is an alias for "git checkout"'),
+    parser = argparse.ArgumentParser(description=info('This is an alias for "git checkout"'),
                                      epilog='')
     parser.add_argument("branch", type=str, help=info("Branch name to checkout"))
     parser.add_argument("-b", action='store_true', help=info("Create a new branch if not existed"))

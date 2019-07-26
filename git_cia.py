@@ -4,7 +4,7 @@ import sys
 from utils import info
 
 def init_parser():
-    parser = argparse.ArgumentParser(description=info(f'Description: Add all file contents to the index, remove file contents if specified in <--exclude>, then record changes to the repository'),
+    parser = argparse.ArgumentParser(description=info('Description: Add all file contents to the index, remove file contents if specified in <--exclude>, then record changes to the repository'),
                                      epilog='')
     parser.add_argument("comment", type=str, help=info("The comment for the commit"))
     parser.add_argument("-x", "--exclude", nargs='*', type=str, help=info("Exclude the files that match the pattern(same as the <pathspec> for 'git add' command)"))
