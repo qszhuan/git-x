@@ -2,6 +2,7 @@ import sys
 import subprocess
 from termcolor import colored
 import os
+from click import style, echo
 
 is_windows = sys.platform == 'win32' or sys.platform == 'cygwin'
 is_cygwin = sys.platform == 'cygwin'
@@ -43,7 +44,8 @@ def popen(command):
 def colored_decorator(color):
     def decorator(func):
         def wrapper(output):
-            return colored(func(output), color)
+            #return colored(func(output), color)
+            return style(func(output), fg=color)
         return wrapper
     return decorator
 
@@ -64,10 +66,10 @@ def warning(output):
     return output
 
 def print_verbose(output):
-    print(verbose(output))
+    echo(verbose(output))
 
 def print_info(output):
-    print(info(output))
+    echo(info(output))
 
 def print_error(output):
-    print(error(output))
+    echo(error(output))

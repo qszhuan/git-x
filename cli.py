@@ -9,8 +9,8 @@ CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 @click.command(short_help=info("Similiar to [git add]"),
                 help=info('Description : Add file contents to the index specified in pathspec, \
                 remove file contents if specified in <--exclude>'))
-@click.argument("pathspec", nargs=-1)
-@click.option("-x",'--exclude', 
+@click.argument("pathspec", nargs=-1, metavar='<pathspec>')
+@click.option("-x",'--exclude', metavar='<pathspec>', 
                 help=info("Exclude the files that match the pattern(same as the <pathspec> for 'git add' command)"))
 def a(pathspec, exclude):
     Gity().a(pathspec, exclude)
@@ -53,15 +53,15 @@ In order to keep it simple, it only accepts two arguments: BRANCH,  and -b
 """) 
 @click.command( 
         help=co_help, 
-        short_help=info("Similiar to [git checkout]"))
+        short_help=click.style("Create new branch if it doesn't exist, same as the '-b' option in [git checkout]", fg='green'))#info("Similiar to [git checkout]"))
 @click.option('-b', metavar='create_if_not_existed', required=False, is_flag=True, help=info("Create new branch if it doesn't exist, same as the '-b' option in [git checkout]"))
 @click.argument('branch', metavar='<branch>')
 @click.argument('start_point', metavar='<start_point>', required=False)
-def co(create_if_not_existed, branch, start_point):
-    click.echo(branch, create_if_not_existed, start_point)
-    #Gity().co()
+def co(start_point, b, branch):
+    print(branch, b, start_point)
+    Gity().co(branch, start_point, b)
 
-@click.command("Show recent n logs(5 by default)")
+@click.command(help=info("Show recent n logs(5 by default)"))
 def llg():
     pass
 
