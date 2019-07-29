@@ -28,7 +28,7 @@ class Gity:
         current_branch = self._current_branch()
         call("git push --set-upstream origin {}".format(current_branch))
         
-    def co(self, branch, start_point, create_if_not_existed=False):
+    def co(self, branch, start_point=None, create_if_not_existed=False):
         print_info('Checking out {} ... '.format(branch))
         create_option = "-b" if create_if_not_existed else ''
         
