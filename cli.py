@@ -6,28 +6,34 @@ from utils import *
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
-@click.command(short_help="Similiar to [git add]",
+@click.command(short_help="Add files to the index",
                 help=info('Description : Add file contents to the index specified in pathspec, \
                 remove file contents if specified in <--exclude>'))
 @click.argument("pathspec", nargs=-1, metavar='<pathspec>')
-@click.option("-x", '--exclude', metavar='<pathspec>', multiple=True,
+@click.option("-x", '--exclude', 
+                metavar='<pathspec>', 
+                multiple=True,
                 help=info("Exclude the files that match the pattern(same as the <pathspec> for 'git add' command)"))
 def a(pathspec, exclude):
     Gity().a(list(pathspec), list(exclude))
 
-@click.command(help="Amend files into repository, this only amend the files that already in the index.")
+@click.command(help="Amend files into repository, this only amend the files that already in the index.",
+                short_help="Amend files into repository")
 @click.option('-e', '--edit', is_flag=True, show_default=True, help="Prompt edit window")
 def amend(edit):
     Gity().amend(None, None, edit)
 
 
-@click.command()
+@click.command(help='Show current branch name')
 def b():
-    pass
+    Gity().b()
     
-@click.command(help="Same as [git ci -m]")
-def ci():
-    pass
+@click.command(short_help="Commit all the indexed files")
+@click.argument('comment', metavar='<comment>')
+def ci(comment):
+    """Commit all the indexed files into reposity, same as 'git commit -m'.
+    """
+    Gity().ci(comment, None, None)
 
 @click.command(help="Add files into repository and commit")
 def cia():
