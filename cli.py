@@ -107,7 +107,10 @@ def up():
 def cli():
     pass
 
-for each in [a, amend, b, ci, cia, co, llg, m, p, pr, st, up]:
+def all_commands():
+    return  [a, amend, b, ci, cia, co, llg, m, p, pr, st, up]
+    
+for each in all_commands():
     cli.add_command(each)
 
 if __name__ == '__main__':

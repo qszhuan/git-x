@@ -3,13 +3,17 @@ from setuptools.command.test import test as TestCommand
 
 import os
 import sys
+import cli
 
 # entry_points and scripts
-git_scripts = [each for each in os.listdir('.') if each.endswith('.py') and not each.startswith('setup')]
-git_extensions = [each.split('.')[0] for each in git_scripts] 
-git_ex_entries = ["{}={}:main".format(each.replace('_','-'), each) for each in git_extensions if each.startswith('git')]
+# git_scripts = [each for each in os.listdir('.') if each.endswith('.py') and not each.startswith('setup')]
+# git_extensions = [each.split('.')[0] for each in git_scripts] 
+command_names = [each.name for each in cli.all_commands()]
 
-print(git_scripts, git_extensions, git_ex_entries)
+
+git_ex_entries = ["git-{}=cli:{}".format(each, each) for each in command_names]
+
+print(git_ex_entries)
 # README
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -59,14 +63,12 @@ if 'bdist_wheel' not in sys.argv:
         # Terminal colors for Windows
         install_requires.append('colorama>=0.2.4')
 
-
 # bdist_wheel
 extras_require = {
     # http://wheel.readthedocs.io/en/latest/#defining-conditional-dependencies
     'python_version == "3.0" or python_version == "3.1"': ['argparse>=1.2.1'],
     ':sys_platform == "win32"': ['colorama>=0.2.4'],
 }
-
 
 setup(
     name="Gity",
@@ -96,7 +98,7 @@ setup(
     url="https://github.com/qszhuan/gity",   # project home page, if any
     project_urls={
         "Bug Tracker": "https://github.com/qszhuan/gity/issues",
-        "Documentation": "https://github.com/qszhuan/gity/docs",
+        "Documentation": "https://github.com/qszhuan/gity/wiki",
         "Source Code": "https://github.com/qszhuan/gity",
     },
 
@@ -134,7 +136,7 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
     ],
-    py_modules=git_extensions,
+    # py_modules=git_extensions,
     entry_points={
             'console_scripts': git_ex_entries,
         }
