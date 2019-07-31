@@ -4,7 +4,7 @@ import click
 import argparse
 from utils import *
 
-CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
+CONTEXT_SETTINGS = dict(help_option_names=['-h'])
 
 @click.command(short_help="Add files to the index",
                 help=info('Description : Add file contents to the index specified in pathspec, \
@@ -37,7 +37,7 @@ def ci(comment):
 
 @click.command(short_help="Add files into index and commit")
 @click.argument('comment', metavar='<comment>')
-@click.option('-x', '--exclude', metavar='<pathspec>')
+@click.option('-x', '--exclude', metavar='<pathspec>', required=False, multiple=True)
 def cia(comment, exclude):
     """Add files into index, and then commit to repository. \n
     This is a combination of the following commands: \n
@@ -104,14 +104,15 @@ def up():
 
 
 @click.group(context_settings=CONTEXT_SETTINGS)
-def cli():
+def main():
     pass
 
 def all_commands():
     return  [a, amend, b, ci, cia, co, llg, m, p, pr, st, up]
     
 for each in all_commands():
-    cli.add_command(each)
+    each.context_settings=CONTEXT_SETTINGS
+    main.add_command(each)
 
 if __name__ == '__main__':
-    cli()
+    main()

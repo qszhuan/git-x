@@ -9,7 +9,7 @@ import cli
 # git_scripts = [each for each in os.listdir('.') if each.endswith('.py') and not each.startswith('setup')]
 # git_extensions = [each.split('.')[0] for each in git_scripts] 
 command_names = [each.name for each in cli.all_commands()]
-modules = ['cli', 'gity']
+modules = ['cli', 'gity', 'utils']
 git_scripts = ['cli.py','gity.py']
 
 git_ex_entries = ["git-{}=cli:{}".format(each, each) for each in command_names]
@@ -76,7 +76,7 @@ setup(
     name="Gity",
     version='1.0.0.dev',
     packages=find_packages(),
-    scripts=git_scripts,
+    # scripts=git_scripts,
     extras_require=extras_require,
     install_requires=install_requires,
     tests_require=tests_require,
