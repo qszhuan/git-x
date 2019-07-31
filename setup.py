@@ -9,9 +9,11 @@ import cli
 # git_scripts = [each for each in os.listdir('.') if each.endswith('.py') and not each.startswith('setup')]
 # git_extensions = [each.split('.')[0] for each in git_scripts] 
 command_names = [each.name for each in cli.all_commands()]
-
+modules = ['cli', 'gity']
+git_scripts = ['cli.py','gity.py']
 
 git_ex_entries = ["git-{}=cli:{}".format(each, each) for each in command_names]
+git_ex_entries.append("gity=cli:main")
 
 print(git_ex_entries)
 # README
@@ -26,7 +28,7 @@ class PyTest(TestCommand):
         TestCommand.finalize_options(self)
         self.test_args = [
             '--doctest-modules', '--verbose',
-            './gity', './tests'
+            '.', './tests'
         ]
         self.test_suite = True
 
@@ -74,7 +76,7 @@ setup(
     name="Gity",
     version='1.0.0.dev',
     packages=find_packages(),
-    # scripts=git_scripts,
+    scripts=git_scripts,
     extras_require=extras_require,
     install_requires=install_requires,
     tests_require=tests_require,
@@ -136,7 +138,7 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
     ],
-    # py_modules=git_extensions,
+    py_modules=modules,
     entry_points={
             'console_scripts': git_ex_entries,
         }
