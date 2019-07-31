@@ -2,3 +2,4 @@ click
 pytest
 pypandoc
 twine
+mock

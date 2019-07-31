@@ -21,20 +21,20 @@ class Platform(object):
     @staticmethod
     def is_mac():
         return sys.platform == 'darwin'
-        
+
     @staticmethod
     def is_cygwin():
         return sys.platform == 'cygwin'
 
   
 def start(command):
-    if(is_windows):
+    if(Platform.is_windows()):
         call("cmd /c start {}".format(command))
-    elif(is_mac):
+    elif(Platform.is_mac()):
         call("open {}".format(command))
-    elif(is_linux):
+    elif(Platform.is_linux()):
         call("xdg-open {}".format(command))
-    elif(is_cygwin):
+    elif(Platform.is_cygwin()):
         call("cygstart {}".format(command))
     else:
         raise Exception("Unknown platform")
