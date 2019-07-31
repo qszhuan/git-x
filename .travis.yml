@@ -27,12 +27,16 @@ matrix:
       dist: xenial          # required for Python >= 3.7
     - os: osx
       osx_image: xcode8
+      python: 3.7
     - os: osx
       osx_image: xcode9
+      python: 3.7
     - os: osx
       osx_image: xcode10
+      python: 3.7
     - os: osx
       osx_image: xcode11
+      python: 3.7
 
 # command to install dependencies
 install:
