@@ -27,8 +27,8 @@ class PyTest(TestCommand):
     def finalize_options(self):
         TestCommand.finalize_options(self)
         self.test_args = [
-            '--doctest-modules', '--verbose',
-            '.', './tests'
+            '--doctest-modules', '--verbose', '--cov=.',
+            './tests'
         ]
         self.test_suite = True
 
@@ -41,6 +41,7 @@ tests_require = [
     # Pytest needs to come last.
     # https://bitbucket.org/pypa/setuptools/issue/196/
     'pytest',
+    'pytest-cov',
     'mock',
 ]
 
