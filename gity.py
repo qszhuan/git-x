@@ -1,16 +1,10 @@
 # -*- coding: utf-8 -*-
-from colorama import init
 
 import sys
 import argparse
 import datetime
 from utils import *
 import os
-
-import subprocess
-
-# use Colorama to make Termcolor work on Windows too
-init(autoreset=True)
 
 class Gity:
     def __init__(self):

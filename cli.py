@@ -7,7 +7,7 @@ from utils import *
 CONTEXT_SETTINGS = dict(help_option_names=['-h'])
 
 @click.command(short_help="Add files to the index",
-                help=info('Description : Add file contents to the index specified in pathspec, \
+                help=info('Add file contents to the index specified in pathspec, \
                 remove file contents if specified in <--exclude>'))
 @click.argument("pathspec", nargs=-1, metavar='<pathspec>')
 @click.option("-x", '--exclude', 

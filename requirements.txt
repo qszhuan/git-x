@@ -1,6 +1,4 @@
 nose
-colorama
-termcolor
 click
 
 pypandoc

@@ -1,6 +1,6 @@
+# -*- coding: utf-8 -*-
 import sys
 import subprocess
-from termcolor import colored
 import os
 from click import style, echo
 
