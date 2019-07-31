@@ -4,10 +4,27 @@ import subprocess
 import os
 from click import style, echo
 
-is_windows = sys.platform == 'win32' or sys.platform == 'cygwin'
+is_windows = sys.platform == 'win32'
 is_cygwin = sys.platform == 'cygwin'
 is_linux = 'linux' in sys.platform
 is_mac = sys.platform == 'darwin'
+
+class Platform(object):
+    @staticmethod
+    def is_windows():
+        return sys.platform == 'win32'
+
+    @staticmethod
+    def is_linux():
+        return 'linux' in sys.platform
+
+    @staticmethod
+    def is_mac():
+        return sys.platform == 'darwin'
+        
+    @staticmethod
+    def is_cygwin():
+        return sys.platform == 'cygwin'
 
   
 def start(command):
@@ -22,13 +39,14 @@ def start(command):
     else:
         raise Exception("Unknown platform")
 
-def open_url(url):
+def open_url(url, exitOnError=True):
     try:
         start(url)
     except:
         print_error("Sorry, don't know how to open a browser on your platform, please use the url below to create a pull request")
         print_info(url)
-        exit()
+        if(exitOnError):
+            exit()
 
 def call(command, exitOnError=True):
     print_verbose('Exec [{}]'.format(command))
