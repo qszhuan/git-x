@@ -1,7 +1,5 @@
-nose
-colorama
-termcolor
 click
-
+pytest
 pypandoc
 twine
+mock

@@ -1,8 +1,4 @@
-from gity import Gity
-
-def main():
-    Gity().p()
-    
+import cli
 if __name__ == "__main__":
-    main()
+    cli.p()
 

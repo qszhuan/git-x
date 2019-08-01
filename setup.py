@@ -3,13 +3,15 @@ from setuptools.command.test import test as TestCommand
 
 import os
 import sys
+import cli
 
-# entry_points and scripts
-git_scripts = [each for each in os.listdir('.') if each.endswith('.py') and not each.startswith('setup')]
-git_extensions = [each.split('.')[0] for each in git_scripts] 
-git_ex_entries = ["{}={}:main".format(each.replace('_','-'), each) for each in git_extensions if each.startswith('git')]
+command_names = [each.name for each in cli.all_commands()]
+modules = ['cli', 'gitx', 'utils']
+git_scripts = ['cli.py','gitx.py']
 
-print(git_scripts, git_extensions, git_ex_entries)
+git_ex_entries = ["git-{}=cli:{}".format(each, each) for each in command_names]
+git_ex_entries.append("git-x=cli:main")
+
 # README
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -21,8 +23,8 @@ class PyTest(TestCommand):
     def finalize_options(self):
         TestCommand.finalize_options(self)
         self.test_args = [
-            '--doctest-modules', '--verbose',
-            './gity', './tests'
+            '--doctest-modules', '--verbose', '--cov=.',
+            './tests'
         ]
         self.test_suite = True
 
@@ -35,45 +37,21 @@ tests_require = [
     # Pytest needs to come last.
     # https://bitbucket.org/pypa/setuptools/issue/196/
     'pytest',
+    'pytest-cov',
     'mock',
 ]
 
 ## depencencies
 install_requires = [
-    'colorama',
-    'termcolor'
+    'click',
 ]
 
-
-# Conditional dependencies:
-
-# sdist
-if 'bdist_wheel' not in sys.argv:
-    try:
-        # noinspection PyUnresolvedReferences
-        import argparse
-    except ImportError:
-        install_requires.append('argparse>=1.2.1')
-
-    if 'win32' in str(sys.platform).lower():
-        # Terminal colors for Windows
-        install_requires.append('colorama>=0.2.4')
-
-
-# bdist_wheel
-extras_require = {
-    # http://wheel.readthedocs.io/en/latest/#defining-conditional-dependencies
-    'python_version == "3.0" or python_version == "3.1"': ['argparse>=1.2.1'],
-    ':sys_platform == "win32"': ['colorama>=0.2.4'],
-}
-
+# Conditional dependencie
 
 setup(
-    name="Gity",
-    version='1.0.0.dev',
+    name="git-x",
+    version=cli.__version__,
     packages=find_packages(),
-    # scripts=git_scripts,
-    extras_require=extras_require,
     install_requires=install_requires,
     tests_require=tests_require,
     cmdclass={'test': PyTest},
@@ -88,20 +66,20 @@ setup(
 
     # metadata to display on PyPI
    # Author details
-    author="Qingshan Zhuan",
+    author=cli.__author__,
     author_email='zhuanqingshan@gmail.com',
-    description="A set of handy git extensions",
+    description=cli.__doc__,
     long_description=long_description,
-    keywords="git extension,git",
-    url="https://github.com/qszhuan/gity",   # project home page, if any
+    keywords="git extension,git, git-x",
+    url="https://github.com/qszhuan/git-x",   # project home page, if any
     project_urls={
-        "Bug Tracker": "https://github.com/qszhuan/gity/issues",
-        "Documentation": "https://github.com/qszhuan/gity/docs",
-        "Source Code": "https://github.com/qszhuan/gity",
+        "Bug Tracker": "https://github.com/qszhuan/git-x/issues",
+        "Documentation": "https://github.com/qszhuan/git-x/wiki",
+        "Source Code": "https://github.com/qszhuan/git-x",
     },
 
     # Choose your license
-    license="MIT",
+    license=cli.__license__,
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
@@ -134,7 +112,7 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
     ],
-    py_modules=git_extensions,
+    py_modules=modules,
     entry_points={
             'console_scripts': git_ex_entries,
         }
