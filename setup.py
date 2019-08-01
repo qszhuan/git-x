@@ -5,9 +5,6 @@ import os
 import sys
 import cli
 
-# entry_points and scripts
-# git_scripts = [each for each in os.listdir('.') if each.endswith('.py') and not each.startswith('setup')]
-# git_extensions = [each.split('.')[0] for each in git_scripts] 
 command_names = [each.name for each in cli.all_commands()]
 modules = ['cli', 'gity', 'utils']
 git_scripts = ['cli.py','gity.py']
@@ -15,7 +12,6 @@ git_scripts = ['cli.py','gity.py']
 git_ex_entries = ["git-{}=cli:{}".format(each, each) for each in command_names]
 git_ex_entries.append("gity=cli:main")
 
-print(git_ex_entries)
 # README
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -50,14 +46,12 @@ install_requires = [
     'click',
 ]
 
-
 # Conditional dependencie
 
 setup(
-    name="Gity",
-    version='1.0.0',
+    name="gity",
+    version=cli.__version__,
     packages=find_packages(),
-    # scripts=git_scripts,
     install_requires=install_requires,
     tests_require=tests_require,
     cmdclass={'test': PyTest},
@@ -72,11 +66,11 @@ setup(
 
     # metadata to display on PyPI
    # Author details
-    author="Qingshan Zhuan",
+    author=cli.__author__,
     author_email='zhuanqingshan@gmail.com',
-    description="A set of handy git extensions",
+    description=cli.__doc__,
     long_description=long_description,
-    keywords="git extension,git",
+    keywords="git extension,git, gity",
     url="https://github.com/qszhuan/gity",   # project home page, if any
     project_urls={
         "Bug Tracker": "https://github.com/qszhuan/gity/issues",
@@ -85,7 +79,7 @@ setup(
     },
 
     # Choose your license
-    license="MIT",
+    license=cli.__license__,
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[

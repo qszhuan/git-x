@@ -1,4 +1,12 @@
-# -*- coding: utf-8 -*-
+"""
+gity - a set of handy git extensions.
+
+"""
+
+__version__ = "0.0.1"
+__author__ = "Qingshan Zhuan"
+__license__ = "MIT"
+
 from gity import Gity
 import click
 import argparse
