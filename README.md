@@ -7,7 +7,9 @@ git-x - a set of handy git extensions.
 
 ## Installation
 
-`pip install git-x`
+```
+pip install git-x
+```
 
 ## Usage
 
