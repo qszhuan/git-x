@@ -7,7 +7,7 @@ parentdir = os.path.dirname(currentdir)
 grand_parentdir = os.path.dirname(parentdir)
 sys.path.append(grand_parentdir)
 import mock
-import gity
+import gitx
 
 
 def test_git_a():

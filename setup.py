@@ -6,11 +6,11 @@ import sys
 import cli
 
 command_names = [each.name for each in cli.all_commands()]
-modules = ['cli', 'gity', 'utils']
-git_scripts = ['cli.py','gity.py']
+modules = ['cli', 'gitx', 'utils']
+git_scripts = ['cli.py','gitx.py']
 
 git_ex_entries = ["git-{}=cli:{}".format(each, each) for each in command_names]
-git_ex_entries.append("gity=cli:main")
+git_ex_entries.append("git-x=cli:main")
 
 # README
 with open("README.md", "r") as fh:
@@ -49,7 +49,7 @@ install_requires = [
 # Conditional dependencie
 
 setup(
-    name="gity",
+    name="git-x",
     version=cli.__version__,
     packages=find_packages(),
     install_requires=install_requires,
@@ -70,12 +70,12 @@ setup(
     author_email='zhuanqingshan@gmail.com',
     description=cli.__doc__,
     long_description=long_description,
-    keywords="git extension,git, gity",
-    url="https://github.com/qszhuan/gity",   # project home page, if any
+    keywords="git extension,git, git-x",
+    url="https://github.com/qszhuan/git-x",   # project home page, if any
     project_urls={
-        "Bug Tracker": "https://github.com/qszhuan/gity/issues",
-        "Documentation": "https://github.com/qszhuan/gity/wiki",
-        "Source Code": "https://github.com/qszhuan/gity",
+        "Bug Tracker": "https://github.com/qszhuan/git-x/issues",
+        "Documentation": "https://github.com/qszhuan/git-x/wiki",
+        "Source Code": "https://github.com/qszhuan/git-x",
     },
 
     # Choose your license

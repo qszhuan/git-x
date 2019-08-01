@@ -9,11 +9,10 @@ sys.path.append(grand_parentdir)
 import mock
 from utils import call
 
-
-def test_start(mock_platform, extected_command):
-        url = 'https://github.com'
-        with mock.patch('subprocess.call') as mock_call:
-            mock_call.return_value = 0
-            start(url)
-            expected = '{} {}'.format(extected_command, url)
-            subprocess.call.assert_called_once_with(expected)
+def test_call():
+    command = 'ls'
+    with mock.patch('subprocess.call') as mock_call:
+        mock_call.return_value = 0
+        call(command)
+        expected = 'ls'
+        mock_call.assert_called_once_with(expected)

@@ -33,7 +33,6 @@ def test_is_linux(monkeypatch):
     assert Platform.is_linux() == True
     assert Platform.is_cygwin() == False
 
-
 def test_is_cygwin(monkeypatch):
     mock =  'cygwin'
     monkeypatch.setattr(sys, 'platform', mock)

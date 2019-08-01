@@ -18,8 +18,8 @@ from utils import *
 def test_start(mock_platform, extected_command):
     with mock.patch('sys.platform', mock_platform):
         url = 'https://github.com'
-        with mock.patch('subprocess.call') as mock_call:
+        with mock.patch('utils.call') as mock_call:
             mock_call.return_value = 0
             start(url)
             expected = '{} {}'.format(extected_command, url)
-            subprocess.call.assert_called_once_with(expected)
+            mock_call.assert_called_once_with(expected)

@@ -1,12 +1,18 @@
+param(
+    #Install flag
+    [switch]$i = $false
+)
 if(Test-Path "build"){
     write-host "Clean build dir........." -f green
     rm -Recurse -Force build
-    rm -Force dist/gity*.whl
+    rm -Force dist/git*.whl
 }
 
 write-host "Build package............." -f green
 python .\setup.py bdist_wheel 
-write-host "Install package..........." -f green
 
-$whl = Get-Item dist/gity*.whl | Select-Object -first 1 -ExpandProperty Name
-pip install .\dist\$whl --upgrade
+if($i){
+    write-host "Install package..........." -f green
+    $whl = Get-Item dist\git*.whl | Select-Object -first 1 -ExpandProperty Name
+    pip install .\dist\$whl --upgrade
+}

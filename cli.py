@@ -1,5 +1,5 @@
 """
-gity - a set of handy git extensions.
+git-x - a set of handy git extensions.
 
 """
 
@@ -7,7 +7,7 @@ __version__ = "0.0.1"
 __author__ = "Qingshan Zhuan"
 __license__ = "MIT"
 
-from gity import Gity
+from gitx import Gitx
 import click
 import argparse
 from utils import *
@@ -23,25 +23,25 @@ CONTEXT_SETTINGS = dict(help_option_names=['-h'])
                 multiple=True,
                 help=info("Exclude the files that match the pattern(same as the <pathspec> for 'git add' command)"))
 def a(pathspec, exclude):
-    Gity().a(list(pathspec), list(exclude))
+    Gitx().a(list(pathspec), list(exclude))
 
 @click.command(help="Amend files into repository, this only amend the files that already in the index.",
                 short_help="Amend files into repository")
 @click.option('-e', '--edit', is_flag=True, show_default=True, help="Prompt edit window")
 def amend(edit):
-    Gity().amend(None, None, edit)
+    Gitx().amend(None, None, edit)
 
 
 @click.command(help='Show current branch name')
 def b():
-    Gity().b()
+    Gitx().b()
     
 @click.command(short_help="Commit all the indexed files")
 @click.argument('comment', metavar='<comment>')
 def ci(comment):
     """Commit all the indexed files into reposity, same as 'git commit -m <comment>'.
     """
-    Gity().ci(comment, None, None)
+    Gitx().ci(comment, None, None)
 
 @click.command(short_help="Add files into index and commit")
 @click.argument('comment', metavar='<comment>')
@@ -52,7 +52,7 @@ def cia(comment, exclude):
     `git a . -x <pathspec>` \n
     `git commit -m <comment>`
     """
-    Gity().cia(comment, list(exclude))
+    Gitx().cia(comment, list(exclude))
 
 # parser.add_argument("branch", type=str, help=info("Branch name to checkout"))
 #     parser.add_argument("-b", action='store_true', help=info("Create a new branch if not existed"))
@@ -71,23 +71,23 @@ This is similiar to 'git checkout', but doesn't support other parameters.
 @click.argument('start_point', metavar='<start_point>', required=False)
 def co(start_point, b, branch):
     print(branch, b, start_point)
-    Gity().co(branch, start_point, b)
+    Gitx().co(branch, start_point, b)
 
 @click.command(short_help="Show recent <number> logs(5 by default)",)
 @click.argument('n', metavar='<number>', default=5)
 def llg(n):
     """Show recent <number> logs(5 by default), same to 'git log --oneline -n <number>'
     """
-    Gity().llg()
+    Gitx().llg()
 
 @click.command(help="Merge codes from branch <from>")
 @click.argument('from_', metavar='<from>')
 def m(from_):
-    Gity().m(from_)
+    Gitx().m(from_)
 
 @click.command(help='Same as [git pull --rebase]')
 def p():
-    Gity().p()
+    Gitx().p()
 
 @click.command(short_help='Create pull request from current branch to <to_branch>')
 @click.argument('to_branch', metavar='<to_branch>', nargs=1)
@@ -96,19 +96,19 @@ def pr(to_branch):
     Currently it only support to raise pull request to github.
     The github repo url is retrieved from the .git/config file.
     """
-    Gity().pr(to_branch)
+    Gitx().pr(to_branch)
 
 @click.command(short_help="Show file status")
 def st():
     """Show file status, same as 'git status'"""
-    Gity().st()
+    Gitx().st()
 
 @click.command(short_help="Create remote branch")
 def up():
     """Create remote branch, 
     same as 'git push --set-upstream origin'
     """
-    Gity().up()
+    Gitx().up()
 
 
 @click.group(context_settings=CONTEXT_SETTINGS)

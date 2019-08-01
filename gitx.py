@@ -6,7 +6,7 @@ import datetime
 from utils import *
 import os
 
-class Gity:
+class Gitx:
     def __init__(self):
         pass
 
@@ -124,16 +124,16 @@ def init_parser():
 def main():
     parser = init_parser()
     args = parser.parse_args()
-    gity = Gity()
+    gitx = Gitx()
 
     if args.status:
-        gity.st()
+        gitx.st()
     elif args.pull:
-        gity.p()
+        gitx.p()
     elif args.logn:
-        gity.llg(args.logn)
+        gitx.llg(args.logn)
     elif args.merge:
-        gity.m(args.merge)
+        gitx.m(args.merge)
     else:
         parser.print_help()
 
