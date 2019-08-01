@@ -1,9 +1,5 @@
-from gity import Gity
-
-def main():
-    gity = Gity()
-    gity.b()
+import cli
 
 if __name__ == "__main__":
-    main()
+    cli.b()
 

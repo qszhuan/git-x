@@ -47,38 +47,17 @@ tests_require = [
 
 ## depencencies
 install_requires = [
-    'colorama',
-    'termcolor'
+    'click',
 ]
 
 
-# Conditional dependencies:
-
-# sdist
-if 'bdist_wheel' not in sys.argv:
-    try:
-        # noinspection PyUnresolvedReferences
-        import argparse
-    except ImportError:
-        install_requires.append('argparse>=1.2.1')
-
-    if 'win32' in str(sys.platform).lower():
-        # Terminal colors for Windows
-        install_requires.append('colorama>=0.2.4')
-
-# bdist_wheel
-extras_require = {
-    # http://wheel.readthedocs.io/en/latest/#defining-conditional-dependencies
-    'python_version == "3.0" or python_version == "3.1"': ['argparse>=1.2.1'],
-    ':sys_platform == "win32"': ['colorama>=0.2.4'],
-}
+# Conditional dependencie
 
 setup(
     name="Gity",
-    version='1.0.0.dev',
+    version='1.0.0',
     packages=find_packages(),
     # scripts=git_scripts,
-    extras_require=extras_require,
     install_requires=install_requires,
     tests_require=tests_require,
     cmdclass={'test': PyTest},

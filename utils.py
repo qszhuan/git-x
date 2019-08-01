@@ -4,11 +4,6 @@ import subprocess
 import os
 from click import style, echo
 
-is_windows = sys.platform == 'win32'
-is_cygwin = sys.platform == 'cygwin'
-is_linux = 'linux' in sys.platform
-is_mac = sys.platform == 'darwin'
-
 class Platform(object):
     @staticmethod
     def is_windows():
