@@ -1,5 +1,6 @@
-[![Build Status](https://travis-ci.org/qszhuan/git-x.svg?branch=master)](https://travis-ci.org/qszhuan/git-x)
-
+.. image:: https://travis-ci.org/qszhuan/git-x.svg?branch=master
+    :target: https://travis-ci.org/qszhuan/git-x
+    
 ==========================================
 git-x - a set of handy git extensions.
 ==========================================
