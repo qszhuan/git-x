@@ -2,6 +2,7 @@ import pytest
 import mock
 from utils import call
 
+
 @mock.patch('subprocess.call', return_value=0)
 def test_call(mock_call):
     command = 'ls'

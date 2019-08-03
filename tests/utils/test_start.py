@@ -2,6 +2,7 @@ import pytest
 import mock
 from utils import *
 
+
 @pytest.mark.parametrize("mock_platform,extected_command", [
     ('win32', 'cmd /c start'),
     ('darwin', 'open'),
@@ -16,3 +17,5 @@ def test_start(mock_platform, extected_command):
             start(url)
             expected = '{} {}'.format(extected_command, url)
             mock_call.assert_called_once_with(expected)
+
+
