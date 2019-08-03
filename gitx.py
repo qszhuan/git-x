@@ -83,7 +83,10 @@ class Gitx:
         call(cmd)
 
     def pr(self, to_branch):
-        remote_url = self._remote_url().rstrip('.git')
+
+        remote_url = self._remote_url()
+        if remote_url.endswith('.git'):
+            remote_url = remote_url[:-4]
         current_branch = self._current_branch()
         if to_branch == current_branch:
             print_error("Can't create pull request against the same branch")
@@ -91,10 +94,18 @@ class Gitx:
         else:
             print_info("Creating PR from {} to {}".format(current_branch, to_branch))
 
-        old_start = "git@github.com:"
+        old_start = "git@"
         if remote_url.startswith(old_start):
-            remote_url = remote_url.replace(old_start, "https://github.com/")
-        pr_url = "{}/compare/{}...{}?expand=1".format(remote_url, to_branch, current_branch)
+            remote_url = remote_url.replace(':', '/', 1)
+            remote_url = remote_url.replace(old_start, "https://")
+
+        if remote_url.find('github.com') >= 0:
+            pr_url = "{}/compare/{}...{}?expand=1".format(remote_url, to_branch, current_branch)
+        elif remote_url.find('bitbucket.org') >= 0:
+            pr_url = "{}/compare/{}%0D{}".format(remote_url, current_branch, to_branch)
+        else:
+            raise Exception("Don't know how to generate the pull request url..")
+
         open_url(pr_url)
 
     def m(self, _from):

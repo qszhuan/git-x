@@ -3,7 +3,7 @@ git-x - a set of handy git extensions.
 
 """
 
-__version__ = "0.0.5"
+__version__ = "0.0.6"
 __author__ = "Qingshan Zhuan"
 __license__ = "MIT"
 
@@ -102,7 +102,7 @@ def p():
 @click.argument('to_branch', metavar='<to_branch>', nargs=1)
 def pr(to_branch):
     """Create pull request from current branch to <to_branch>.
-    Currently it only support to raise pull request to github.
+    Currently it only support to raise pull request to github or bitbucket.
     The github repo url is retrieved from the .git/config file.
     """
     Gitx().pr(to_branch)
