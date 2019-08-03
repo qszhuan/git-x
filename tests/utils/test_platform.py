@@ -1,36 +1,32 @@
 import pytest
 import os
 import sys
-
+import mock
 from utils import *
 
-def test_is_windows(monkeypatch):
-    mock =  'win32'
-    monkeypatch.setattr(sys, 'platform', mock)
+@mock.patch('sys.platform', 'win32')
+def test_is_windows():
     assert Platform.is_windows() == True
     assert Platform.is_mac() == False
     assert Platform.is_linux() == False
     assert Platform.is_cygwin() == False
 
-def test_is_mac(monkeypatch):
-    mock =  'darwin'
-    monkeypatch.setattr(sys, 'platform', mock)
+@mock.patch('sys.platform', 'darwin')
+def test_is_mac():
     assert Platform.is_windows() == False
     assert Platform.is_mac() == True
     assert Platform.is_linux() == False
     assert Platform.is_cygwin() == False
 
-def test_is_linux(monkeypatch):
-    mock =  'linux'
-    monkeypatch.setattr(sys, 'platform', mock)
+@mock.patch('sys.platform', 'linux')
+def test_is_linux():
     assert Platform.is_windows() == False
     assert Platform.is_mac() == False
     assert Platform.is_linux() == True
     assert Platform.is_cygwin() == False
 
-def test_is_cygwin(monkeypatch):
-    mock =  'cygwin'
-    monkeypatch.setattr(sys, 'platform', mock)
+@mock.patch('sys.platform', 'cygwin')
+def test_is_cygwin():
     assert Platform.is_windows() == False
     assert Platform.is_mac() == False
     assert Platform.is_linux() == False
