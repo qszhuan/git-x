@@ -68,7 +68,8 @@ This is similiar to 'git checkout', but doesn't support other parameters.
 
 @click.command(
     help=co_help,
-    short_help="Check out branch <branch>, create if '-b' is True and the branch doesn't exist.")
+    short_help="Check out branch <branch>, create if '-b' is True and the branch doesn't exist."
+               " start_point is only used for creating new branch")
 @click.option('-b', metavar='create_if_not_existed', required=False,
               is_flag=True,
               show_default=True,

@@ -1,13 +1,12 @@
 from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 
-import os
 import sys
 import cli
 
 command_names = [each.name for each in cli.all_commands()]
 modules = ['cli', 'gitx', 'utils']
-git_scripts = ['cli.py','gitx.py']
+git_scripts = ['cli.py', 'gitx.py']
 
 git_ex_entries = ["git-{}=cli:{}".format(each, each) for each in command_names]
 git_ex_entries.append("git-x=cli:main")
@@ -16,7 +15,8 @@ git_ex_entries.append("git-x=cli:main")
 with open("README.rst", "r", encoding='utf-8') as fh:
     long_description = fh.read()
 
-#Tests
+
+# Tests
 class PyTest(TestCommand):
     # `$ python setup.py test' simply installs minimal requirements
     # and runs the tests with no fancy stuff like parallel execution.
@@ -43,6 +43,7 @@ tests_require = [
 
 ## depencencies
 install_requires = [
+    'colorama',
     'click',
 ]
 
@@ -65,13 +66,13 @@ setup(
     },
 
     # metadata to display on PyPI
-   # Author details
+    # Author details
     author=cli.__author__,
     author_email='zhuanqingshan@gmail.com',
     description=cli.__doc__.strip(),
     long_description=long_description,
     keywords="git extension,git, git-x",
-    url="https://github.com/qszhuan/git-x",   # project home page, if any
+    url="https://github.com/qszhuan/git-x",  # project home page, if any
     project_urls={
         "Bug Tracker": "https://github.com/qszhuan/git-x/issues",
         "Documentation": "https://github.com/qszhuan/git-x/wiki",
@@ -115,7 +116,7 @@ setup(
     ],
     py_modules=modules,
     entry_points={
-            'console_scripts': git_ex_entries,
-        }
+        'console_scripts': git_ex_entries,
+    }
 
 )

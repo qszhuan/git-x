@@ -23,9 +23,30 @@ class Gitx:
 
     def co(self, branch, start_point=None, create_if_not_existed=False):
         print_info('Checking out {} ... '.format(branch))
-        create_option = "-b" if create_if_not_existed else ''
+        create_option = " -b" if create_if_not_existed else ''
 
-        call('git checkout {} {} {}'.format(create_option, branch, start_point if start_point else ''))
+        st_point = start_point if start_point and create_if_not_existed else ''
+
+        branches = [each.lstrip('*').strip() for each in popen('git branch').splitlines()]
+
+        if not create_if_not_existed:
+            matches = [each for each in branches if branch in each]
+            if len(matches) == 1:
+                print_info('Matched a branch {}'.format(matches[0]))
+                branch = matches[0]
+            elif len(matches) > 1:
+                print_info('Find {} branches including {}:'.format(len(matches), quote(branch)))
+                print_info('='*20)
+                for index, each in enumerate(matches):
+                    print_info('{}: {}'.format(index, each))
+                print_info('='*20)
+                index = print_prompt('Please select branch by index', type_=int)
+                branch = matches[index]
+            else:
+                pass  # let git itself handle this.
+
+        command = 'git checkout{} {} {}'.format(create_option, branch, st_point).strip()
+        call(command)
 
     def a(self, include, exclude):
         include_str = ' '.join([quote(each) for each in include]) if isinstance(include, list) else quote(include)
@@ -107,6 +128,11 @@ class Gitx:
         remote_url = popen(cmd)
         print_info('Remote origin url: {}'.format(remote_url))
         return remote_url
+
+    def _branches_with_name_like(self, str):
+        cmd = 'git branch'
+        branches = popen(cmd)
+        print(branches)
 
 
 def init_parser():

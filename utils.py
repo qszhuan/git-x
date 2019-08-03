@@ -2,7 +2,7 @@
 import sys
 import subprocess
 import os
-from click import style, echo
+from click import style, echo, secho, prompt
 
 
 class Platform(object):
@@ -28,34 +28,35 @@ def quote(string):
 
 
 def start(command):
-    if (Platform.is_windows()):
+    if Platform.is_windows():
         call("cmd /c start {}".format(command))
-    elif (Platform.is_mac()):
+    elif Platform.is_mac():
         call("open {}".format(command))
-    elif (Platform.is_linux()):
+    elif Platform.is_linux():
         call("xdg-open {}".format(command))
-    elif (Platform.is_cygwin()):
+    elif Platform.is_cygwin():
         call("cygstart {}".format(command))
     else:
         raise Exception("Unknown platform")
 
 
-def open_url(url, exitOnError=True):
+def open_url(url, exit_on_error=True):
     try:
         start(url)
     except:
         print_error(
-            "Sorry, don't know how to open a browser on your platform, please use the url below to create a pull request")
+            "Sorry, don't know how to open a browser on your platform, please use the url below to create a pull "
+            "request")
         print_info(url)
-        if (exitOnError):
+        if exit_on_error:
             exit()
 
 
-def call(command, exitOnError=True):
+def call(command, exit_on_error=True):
     print_verbose('Exec [{}]'.format(command))
-    if (subprocess.call(command)):
+    if subprocess.call(command):
         print_error("Error happened when running [{}]".format(command))
-        if (exitOnError):
+        if exit_on_error:
             exit()
 
 
@@ -67,11 +68,8 @@ def popen(command):
 def colored_decorator(color):
     def decorator(func):
         def wrapper(output):
-            # return colored(func(output), color)
             return style(func(output), fg=color)
-
         return wrapper
-
     return decorator
 
 
@@ -97,6 +95,10 @@ def warning(output):
 
 def print_verbose(output):
     echo(verbose(output))
+
+
+def print_prompt(output, type_=None):
+    return prompt(style(output, fg='blue'), type=type_)
 
 
 def print_info(output):
