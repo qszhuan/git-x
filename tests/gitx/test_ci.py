@@ -15,3 +15,5 @@ def test_ci_exception(mock_call):
         expected = 'Please add a valid comment.'
         Gitx().ci(None, None, None)
         assert e == expected
+
+

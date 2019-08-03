@@ -50,13 +50,13 @@ class Gitx:
         call(cmd)
 
     def cia(self, comment, exclude):
-        if (comment is None or comment == ''):
+        if comment is None or comment == '':
             raise Exception(error('Please add a valid comment.'))
         self.a('.', exclude)
         call('git commit -am "{}"'.format(comment))
 
     def llg(self, n=5):
-        if (n <= 0):
+        if n <= 0:
             raise Exception(error('The commit count must be greater than zero.'))
         cmd = 'git log --oneline -n {}'.format(n)
         call(cmd)
@@ -64,25 +64,25 @@ class Gitx:
     def pr(self, to_branch):
         remote_url = self._remote_url().rstrip('.git')
         current_branch = self._current_branch()
-        if (to_branch == current_branch):
+        if to_branch == current_branch:
             print_error("Can't create pull request against the same branch")
             exit()
         else:
             print_info("Creating PR from {} to {}".format(current_branch, to_branch))
 
         old_start = "git@github.com:"
-        if (remote_url.startswith(old_start)):
+        if remote_url.startswith(old_start):
             remote_url = remote_url.replace(old_start, "https://github.com/")
         pr_url = "{}/compare/{}...{}?expand=1".format(remote_url, to_branch, current_branch)
         open_url(pr_url)
 
     def m(self, _from):
-        if (_from is None):
+        if _from is None:
             raise error("Please input source branch")
 
         _from = _from.strip()
-        if (len(_from.split()) > 1):
-            raise "Invalid parameter."
+        if len(_from.split()) > 1:
+            raise Exception("Invalid parameter.")
 
         currentBranch = self._current_branch()
 
