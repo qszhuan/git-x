@@ -3,7 +3,7 @@ git-x - a set of handy git extensions.
 
 """
 
-__version__ = "0.0.4"
+__version__ = "0.0.5"
 __author__ = "Qingshan Zhuan"
 __license__ = "MIT"
 
@@ -15,13 +15,13 @@ CONTEXT_SETTINGS = dict(help_option_names=['-h'])
 
 
 @click.command(short_help="Add files to the index",
-               help=info('Add file contents to the index specified in pathspec, \
-                remove file contents if specified in <--exclude>'))
+               help='Add file contents to the index specified in <pathspec>, \
+                remove file contents if specified in <--exclude>')
 @click.argument("pathspec", nargs=-1, metavar='<pathspec>')
 @click.option("-x", '--exclude',
               metavar='<pathspec>',
               multiple=True,
-              help=info("Exclude the files that match the pattern(same as the <pathspec> for 'git add' command)"))
+              help="Exclude the files that match the pattern(same as the <pathspec> for 'git add' command)")
 def a(pathspec, exclude):
     Gitx().a(list(pathspec), list(exclude))
 
@@ -58,18 +58,16 @@ def cia(comment, exclude):
     Gitx().cia(comment, list(exclude))
 
 
-# parser.add_argument("branch", type=str, help=info("Branch name to checkout"))
-#     parser.add_argument("-b", action='store_true', help=info("Create a new branch if not existed"))
-
-co_help = """Check out branch <branch>, create if '-b' is True and the branch doesn't exist. \n
-This is similiar to 'git checkout', but doesn't support other parameters.
+co_help = """Check out branch <branch>. \n 
+ If multiple branches including the <branch> text, all branches will be listed and let user to choose. \n
+Create a new branch if '-b' is True and the branch doesn't exist. \n
+This is similiar to 'git checkout', but doesn't support other parameters. \n
 """
 
 
 @click.command(
     help=co_help,
-    short_help="Check out branch <branch>, create if '-b' is True and the branch doesn't exist."
-               " start_point is only used for creating new branch")
+    short_help="Checkout/Create branch")
 @click.option('-b', metavar='create_if_not_existed', required=False,
               is_flag=True,
               show_default=True,
