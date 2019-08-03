@@ -13,7 +13,7 @@ git_ex_entries = ["git-{}=cli:{}".format(each, each) for each in command_names]
 git_ex_entries.append("git-x=cli:main")
 
 # README
-with open("README.md", "r") as fh:
+with open("README.rst", "r", encoding='utf-8') as fh:
     long_description = fh.read()
 
 #Tests
@@ -68,7 +68,7 @@ setup(
    # Author details
     author=cli.__author__,
     author_email='zhuanqingshan@gmail.com',
-    description=cli.__doc__,
+    description=cli.__doc__.strip(),
     long_description=long_description,
     keywords="git extension,git, git-x",
     url="https://github.com/qszhuan/git-x",   # project home page, if any
@@ -95,7 +95,8 @@ setup(
         'Topic :: Utilities',
         'Topic :: Software Development',
         'Topic :: Terminals',
-        'Topic :: Version Control',
+        'Topic :: Software Development :: Version Control',
+        'Topic :: Software Development :: Version Control :: Git',
 
         # Pick your license as you wish (should match "license" above)
         'License :: OSI Approved :: MIT License',
@@ -104,8 +105,8 @@ setup(
 
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',

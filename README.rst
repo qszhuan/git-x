@@ -1,6 +1,6 @@
 .. image:: https://travis-ci.org/qszhuan/git-x.svg?branch=master
     :target: https://travis-ci.org/qszhuan/git-x
-    
+
 ==========================================
 git-x - a set of handy git extensions.
 ==========================================
@@ -12,7 +12,7 @@ Installation
 
   pip install git-x
 
-Usage
+Execution
 ==========================================
 
 Show help  message
@@ -24,11 +24,12 @@ Run
 
   git-x 
 
-, or ignore the `-` in `git-x`:
+, or ignore the ``-`` in ``git-x``:
 
 .. code-block:: sh
 
   git x
+
 
 It will output the help message:
 
@@ -56,12 +57,18 @@ It will output the help message:
     up     Create remote branch
 
 
-It includes a list of command, take `st` as an example:
+*Note: If you have an exe like ``git-x.exe`` in windows, or ``git-x.sh`` in linux or mac, you can run the command with ``git x`` directly. This is handled by git.*
+
 
 Run commands
 ------------------------------
 
-1. Run with `git-x`
+
+``git-x`` includes a list of commands, let's take ``st`` as an example:
+
+There are several ways to run the command:
+
+1. Run with ``git-x``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Run
 
@@ -74,7 +81,7 @@ Run
  .. code-block:: sh
   git-x sh -h
 
-It will output the help docof `sh` command:
+It will output the help docof ``sh`` command:
 
 .. code-block:: sh
 
@@ -86,26 +93,39 @@ It will output the help docof `sh` command:
   Options:
     -h  Show this message and exit.
 
-2. Run with `git-`
+2. Run with ``git-``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can run the commands listed above with `git-`:
+You may see that in the Usage line, it shows ``git-st``, which means that you can run the commands listed above with ``git-``:
 
 .. code-block:: sh
+
   git-st -h
 
+It will output the same result:
 
-3. Run with `git`
+.. code-block:: sh
+
+  $ git-st -h
+  Usage: git-st [OPTIONS]
+
+    Show file status, same as 'git status'
+
+  Options:
+    -h  Show this message and exit.
+
+
+3. Run with ``git``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The command can also be invoked with `git`, like below:
+As mentioned above, we can also run the command with ``git`` directly.
 
 .. code-block:: sh
 
   git st -h 
 
 
-It will do the same as `git x sh -h` or `git-x sh -h`.
+It will do the same as ``git x sh -h`` or ``git-x sh -h``.
 
 **Notice**: 
 
@@ -119,6 +139,6 @@ It will do the same as `git x sh -h` or `git-x sh -h`.
 2. You need to install git cli tool first, as all the commands will call the native git commands eventually.
 
 
-Finally, happy `git`-ing with `git-x`.
+Finally, happy ``git``-ing with ``git-x``.
 
 

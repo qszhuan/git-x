@@ -57,6 +57,8 @@ class Gitx:
         call('git commit -am "{}"'.format(comment))
     
     def llg(self, n = 5):
+        if(n <=0):
+            raise Exception(error('The commit count must be greater than zero.'))
         cmd = 'git log --oneline -n {}'.format(n)
         call(cmd)
 
