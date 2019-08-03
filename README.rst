@@ -57,8 +57,7 @@ It will output the help message:
     up     Create remote branch
 
 
-*Note: If you have an exe like ``git-x.exe`` in windows, or ``git-x.sh`` in linux or mac, you can run the command with ``git x`` directly. This is handled by git.*
-
+*Note: If you have an exe like* ``git-x.exe`` *in windows, or* ``git-x.sh`` *in linux or mac, you can run the command with* ``git x`` *directly. This is handled by git.*
 
 Run commands
 ------------------------------
