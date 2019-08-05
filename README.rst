@@ -38,7 +38,7 @@ Installation
 
   pip install git-x
 
-How to Run
+How to Use
 ==========================================
 
 Show help  message
@@ -58,7 +58,7 @@ Run
   git x
 
 
-It will output the help message:
+It will output the help message, which showing all the available commands:
 
 .. code-block:: sh
 
@@ -108,11 +108,11 @@ Or,
 
  .. code-block:: sh
 
-  git-x sh -h
+  git-x st -h
 
-It will output the help doc of ``sh`` command:
+It will output the help doc of ``st`` command:
 
-.. code-block:: sh
+.. code-block::
 
   $ git x st -h
   Usage: git-x st [OPTIONS]
@@ -153,10 +153,12 @@ They both output the help doc of ``st`` command:
 Usages of all commands
 ==========================================
 
-git st
+In the next we will show the detailed usage of each commands:
+
+git x
 ------
 
-List out all the available commands:
+This is the command to list out all the available commands:
 
 ::
 
