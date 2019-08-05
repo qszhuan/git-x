@@ -1,5 +1,31 @@
-.. image:: https://travis-ci.org/qszhuan/git-x.svg?branch=master
+.. start-badges
+
+.. list-table::
+    :stub-columns: 1
+
+    * - License
+      - |license|
+    * - CI
+      - |travis|
+    * - Packages
+      - |version| |pypi_format| |supported-versions|
+
+.. |travis| image:: https://travis-ci.org/qszhuan/git-x.svg?branch=master
     :target: https://travis-ci.org/qszhuan/git-x
+
+.. |license| image:: https://img.shields.io/github/license/qszhuan/git-x?style=plastic
+    :alt: GitHub license
+    :target: https://github.com/qszhuan/git-x/blob/master/LICENSE
+
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/git-x
+    :alt: PyPI - Python Version
+
+.. |version| image:: https://img.shields.io/pypi/v/git-x?style=plastic
+    :alt: PyPI
+
+.. |pypi_format| image:: https://img.shields.io/pypi/format/git-x
+    :alt: PyPI - Format
+
 
 ==========================================
 git-x - a set of handy git extensions.
