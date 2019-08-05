@@ -1,5 +1,5 @@
 # Usage
-## git st
+## git x
 Here are the available commands:
 ```
 a	Add file contents to the index

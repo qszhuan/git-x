@@ -3,7 +3,7 @@ git-x - a set of handy git extensions.
 
 """
 
-__version__ = "0.0.7"
+__version__ = "0.0.8"
 __author__ = "Qingshan Zhuan"
 __license__ = "MIT"
 

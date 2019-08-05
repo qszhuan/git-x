@@ -4,7 +4,7 @@ with open('usage.md', 'w') as usage:
     data = []
     data.extend([
         '# Usage\n',
-        '## git st\n',
+        '## git x\n',
         'List out all the available commands:\n',
     ])
     helps = ["{}\t{}\n".format(each.name, each.short_help) for each in cli.all_commands()]
