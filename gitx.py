@@ -35,7 +35,7 @@ class Gitx:
                 print_info('Matched a branch {}'.format(matches[0]))
                 branch = matches[0]
             elif len(matches) > 1:
-                print_info('Find {} branches including {}:'.format(len(matches), quote(branch)))
+                print_info('Found {} branches including {}:'.format(len(matches), quote(branch)))
                 print_info('='*20)
                 for index, each in enumerate(matches):
                     print_info('{}: {}'.format(index, each))

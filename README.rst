@@ -12,7 +12,7 @@ Installation
 
   pip install git-x
 
-Execution
+How to Run
 ==========================================
 
 Show help  message
@@ -25,6 +25,7 @@ Run
   git-x 
 
 , or ignore the ``-`` in ``git-x``:
+
 
 .. code-block:: sh
 
@@ -69,18 +70,21 @@ There are several ways to run the command:
 
 1. Run with ``git-x``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Run
 
 .. code-block:: sh  
 
  git x st -h 
 
- Or, 
+
+Or,
 
  .. code-block:: sh
+
   git-x sh -h
 
-It will output the help docof ``sh`` command:
+It will output the help doc of ``sh`` command:
 
 .. code-block:: sh
 
@@ -92,7 +96,7 @@ It will output the help docof ``sh`` command:
   Options:
     -h  Show this message and exit.
 
-2. Run with ``git-``
+2. Run with ``git-`` or ``git``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You may see that in the Usage line, it shows ``git-st``, which means that you can run the commands listed above with ``git-``:
@@ -101,7 +105,13 @@ You may see that in the Usage line, it shows ``git-st``, which means that you ca
 
   git-st -h
 
-It will output the same result:
+Or, even run with ``git``:
+
+.. code-block:: sh
+
+  git st -h
+
+They both output the help doc of ``st`` command:
 
 .. code-block:: sh
 
@@ -114,28 +124,144 @@ It will output the same result:
     -h  Show this message and exit.
 
 
-3. Run with ``git``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Usages of all commands
+==========================================
 
-As mentioned above, we can also run the command with ``git`` directly.
+git st
+------
 
-.. code-block:: sh
+List out all the available commands:
 
-  git st -h 
+::
+
+   a        Add file contents to the index
+   amend    Amend files into repository
+   b        Show current branch name
+   ci       Commit all the indexed files
+   cia      Add files into index and commit
+   co       Checkout/Create branch
+   llg      Show recent <number> logs
+   m        Merge codes from branch <from> to current branch
+   p        Pull latest code
+   pr       Create pull request from current branch to <to_branch>
+   st       Show the working tree status
+   up       Create remote branch
+
+git a
+-----
+
+The usage is:
+
+::
 
 
-It will do the same as ``git x sh -h`` or ``git-x sh -h``.
+   Add file that specified in <pathspec> contents into the index.
+   Ignore/Remove the file contents from the index if the files are specified in the -x option.
+   The <pathspec> syntax is same as the one in 'git status' parameter.
+
+   Examples:
+       1. Add all sql files:
+           git a *.sql
+       2. Add all files, but ignore all config files(ending with .config extensions)
+           git a . -x *.config
+       3. Ignore multiple files(*.config, *.md) by using more than one '-x' to specify multiple patterns.
+           git a . -x *.config -x *.md
+       4. Remove all config files from the index
+           git -x *.config
+
+git amend
+---------
+
+The usage is:
+
+::
+
+
+   Amend files into repository, this only amend the files that already in the index.
+
+   Examples:
+       1. Amend without editing
+           git amend
+       2. Amend, and edit the commit message, this will open the editing window,
+           depends on what editor is configured in git.
+           git amend -e
+
+git b
+-----
+
+The usage is:
+
+::
+
+
+   Show current branch name.
+
+   Example:
+       git b
+
+git ci
+------
+
+The usage is:
+
+::
+
+
+   Commit all the indexed files into repository, same as 'git commit -m <comment>'.
+
+   Example:
+       git ci "This is the comment."
+
+git cia
+-------
+
+The usage is:
+
+::
+
+
+   Add content files into index, and then create a new commit.
+   By default it will add all the files under the current folder.
+   You can ignore/remove files by specifying in the '-x' option.
+   This is a combination of the following commands:
+   'git a . -x <pathspec>'
+   'git commit -m <comment>'
+
+   Examples:
+       1. Add all files and create a commit.
+           git cia "This is the comment"
+       2. Exclude *.config files, and create a commit.
+           git -x *.config "This is the comment"
+       3. Exclude the *.cs and *.config files, and create a commit.
+           git -x *.config -x *.cs "This is the comment"
+
+git co
+------
+
+The usage is:
+
+::
+
+
+   Check out the branch matching the string in <branch>.
+   If multiple branches include the <branch> text, all those branches will be listed and let user to choose.
+   This only works if '-b' is not present.
+   If '-b' is present, a new branch with name <branch> will be created.
+
+   Examples:
+       Suppose we have 4 existing branches - master, develop, feature_1, feature_2
+       1. Switch to an existing branch 'develop'
+           git co develop
+       2. Create a new branch 'feature_3'
+           git co -b feature_3
+       3. Create a new branch, and set the start point with <start_point>
+           git co -b feature_3 32aa51b
+       4. Switch to a branch with name like 'feature_*'
+           gi co feature_
 
 **Notice**: 
 
-1. You may know that you can add git alias in the git config file. If you have the same alias added, the alias will not be invoked:
-
-  .. code-block:: ini
-
-    [alias]
-    st=status
-
-2. You need to install git cli tool first, as all the commands will call the native git commands eventually.
+ You need to install git cli tool first, as all the commands will call the native git commands eventually.
 
 
 Finally, happy ``git``-ing with ``git-x``.
