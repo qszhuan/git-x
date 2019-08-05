@@ -20,7 +20,7 @@
 .. |supported-versions| image:: https://img.shields.io/pypi/pyversions/git-x
     :alt: PyPI - Python Version
 
-.. |version| image:: https://img.shields.io/pypi/v/git-x?style=plastic
+.. |version| image:: https://img.shields.io/pypi/v/git-x?color=green&style=plastic
     :alt: PyPI
 
 .. |pypi_format| image:: https://img.shields.io/pypi/format/git-x
