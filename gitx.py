@@ -74,7 +74,7 @@ class Gitx:
         if comment is None or comment == '':
             raise Exception(error('Please add a valid comment.'))
         self.a('.', exclude)
-        call('git commit -am "{}"'.format(comment))
+        call('git commit -m "{}"'.format(comment))
 
     def llg(self, n=5, g=False, a=False, d=False):
         if n <= 0:
