@@ -1,6 +1,6 @@
 # Usage
 ## git x
-Here are the available commands:
+List out all the available commands:
 ```
 a	Add file contents to the index
 amend	Amend files into repository
@@ -126,6 +126,10 @@ Example:
         git llg
     2. Show recent 6 commit messages.
         git llg 6
+    3. Show with graph
+        git llg -g
+    4. Show with graph, author, and date
+        git llg -gad
 ```
 ## git m
 The usage is:
