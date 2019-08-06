@@ -76,10 +76,18 @@ class Gitx:
         self.a('.', exclude)
         call('git commit -am "{}"'.format(comment))
 
-    def llg(self, n=5):
+    def llg(self, n=5, g=False, a=False, d=False):
         if n <= 0:
             raise Exception(error('The commit count must be greater than zero.'))
-        cmd = 'git log --oneline -n {}'.format(n)
+
+        cmd = 'git log {} --pretty=format:"{} {} %s{}{}" --abbrev-commit -n {}'\
+            .format(
+                    '--graph' if g else '--oneline',
+                    '%C(auto)%h%Creset',
+                    '%C(auto)%d%Creset',
+                    ' %Cgreen(%cr)%Creset' if d else '',
+                    ' %C(cyan)<%an>%Creset' if a else '',
+                    n)
         call(cmd)
 
     def pr(self, to_branch):
