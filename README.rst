@@ -69,18 +69,17 @@ It will output the help message, which showing all the available commands:
     -h  Show this message and exit.
 
   Commands:
-    a      Add files to the index
+    a      Add file contents to the index
     amend  Amend files into repository
     b      Show current branch name
     ci     Commit all the indexed files
     cia    Add files into index and commit
-    co     Check out branch <branch>, create if '-b' is True and the branch
-          doesn't exist.
-    llg    Show recent <number> logs(5 by default)
-    m      Merge codes from branch <from>
-    p      Same as [git pull --rebase]
+    co     Checkout/Create branch
+    llg    Show recent <number> logs
+    m      Merge codes from branch <from> to current branch
+    p      Pull latest code
     pr     Create pull request from current branch to <to_branch>
-    st     Show file status
+    st     Show the working tree status
     up     Create remote branch
 
 
