@@ -3,7 +3,7 @@ git-x - a set of handy git extensions.
 
 """
 
-__version__ = "0.0.9"
+__version__ = "0.1.0"
 __author__ = "Qingshan Zhuan"
 __license__ = "MIT"
 
@@ -150,9 +150,9 @@ def co(start_point, b, branch):
 
 @click.command(short_help="Show recent <number> logs", )
 @click.argument('n', metavar='<number>', default=5)
-@click.option('-g', '--graph', is_flag=True, required=False)
-@click.option('-a', '--author', is_flag=True, required=False)
-@click.option('-d', '--date', is_flag=True, required=False)
+@click.option('-g', '--graph', is_flag=True, required=False, help='Show in graph mode')
+@click.option('-a', '--author', is_flag=True, required=False, help='Show the author name of each commit')
+@click.option('-d', '--date', is_flag=True, required=False, help='show relative date of each commit')
 def llg(n, graph, author, date):
     """
     \b
