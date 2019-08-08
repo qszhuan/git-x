@@ -36,7 +36,7 @@ Installation
 
 .. code-block:: text
 
-  pip install git-x
+  pip install git-x --upgrade  
 
 How to Use
 ==========================================
