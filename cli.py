@@ -37,7 +37,6 @@ def a(pathspec, exclude):
         4. Remove all config files from the index
             git -x *.config
     """
-    print(pathspec)
     Gitx().a(list(pathspec), list(exclude))
 
 
