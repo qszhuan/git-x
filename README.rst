@@ -198,7 +198,7 @@ This is the description and example of this command:
         2. Add all files, but ignore all config files(ending with .config extensions)
             git a . -x *.config
         3. Ignore multiple files(*.config, *.md) by using more than one '-x' to specify multiple patterns.
-            git a . -x *.config -x *.md
+            git a . -x *.config -x *.md //There is an known issue on mac or linux system,as the *.md will be auto expanded into a file list. In this case, you can use " to wrap the paramter. like git a . -x "*.config"
         4. Remove all config files from the index
             git -x *.config
 
