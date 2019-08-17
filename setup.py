@@ -12,8 +12,12 @@ git_ex_entries = ["git-{}=cli:{}".format(each, each) for each in command_names]
 git_ex_entries.append("git-x=cli:main")
 
 # README
-with open("README.rst", "r", encoding='utf-8') as fh:
-    long_description = fh.read()
+if sys.version_info.major == 3:
+    with open("README.rst", "r", encoding='utf-8') as fh:
+        long_description = fh.read()
+else:
+    with open("README.rst", "r") as fh:
+        long_description = fh.read()
 
 
 # Tests

@@ -138,7 +138,7 @@ class Gitx:
         self._current_branch()
 
     def _current_branch(self):
-        branch = popen('git name-rev --name-only HEAD')
+        branch = popen('git rev-parse --abbrev-ref HEAD')
         print_info('Current branch: {}'.format(branch))
         return branch
 
