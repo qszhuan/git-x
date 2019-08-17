@@ -54,7 +54,7 @@ def open_url(url, exit_on_error=True):
 
 def call(command, exit_on_error=True):
     print_verbose('Exec [{}]'.format(command))
-    if subprocess.call(command):
+    if subprocess.call(command, shell=True):
         print_error("Error happened when running [{}]".format(command))
         if exit_on_error:
             exit()
@@ -69,7 +69,9 @@ def colored_decorator(color):
     def decorator(func):
         def wrapper(output):
             return style(func(output), fg=color)
+
         return wrapper
+
     return decorator
 
 
