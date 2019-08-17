@@ -8,4 +8,4 @@ def test_call(mock_call):
     command = 'ls'
     call(command)
     expected = 'ls'
-    mock_call.assert_called_once_with(expected)
+    mock_call.assert_called_once_with(expected, shell=True)
