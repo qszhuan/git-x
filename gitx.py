@@ -153,6 +153,43 @@ class Gitx:
         branches = popen(cmd)
         print(branches)
 
+    def clb(self):
+        current_branch = self._current_branch()
+        branches_ignored = ['master', 'dev', 'develop', 'trunk', current_branch]
+        cmd = 'git branch --merged'
+        merged_local_branches = [each.lstrip('*').strip() for each in popen(cmd).splitlines()]
+        branches_to_clean = set(merged_local_branches) - set(branches_ignored)
+
+        if len(branches_to_clean) == 0:
+            return
+
+        print_info('Found {} branches to delete:'.format(len(branches_to_clean)))
+        print_info('=' * 20)
+        for branch in branches_to_clean:
+            print_info(branch)
+        print_info('=' * 20)
+
+        for branch in branches_to_clean:
+            self._delete_branch(branch)
+        else:
+            print_info("All done.")
+
+    def _delete_branch(self, branch):
+        yes = print_confirm("Do you want to delete branch [ {} ]? ".format(branch))
+        if yes:
+            failed = call('git branch --delete {}'.format(branch), exit_on_error=False)
+            if not failed:
+                print_info('branch [ {} ] is deleted.'.format(branch))
+            else:
+                forced = print_confirm("Do you want to force delete branch [ {} ]? ".format(branch), default=False)
+                if forced:
+                    call('git branch -D {}'.format(branch))
+                    print_info('branch [ {} ] is deleted.'.format(branch))
+                else:
+                    print_info('skipped.')
+        else:
+            print_info('skipped.')
+
 
 def init_parser():
     parser = argparse.ArgumentParser(description='git extensions',

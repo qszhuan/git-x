@@ -3,7 +3,7 @@ git-x - a set of handy git extensions.
 
 """
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Qingshan Zhuan"
 __license__ = "MIT"
 
@@ -68,6 +68,19 @@ def b():
         git b
     """
     Gitx().b()
+
+
+@click.command(short_help='Clean merged local branch.')
+def clb():
+    """
+    \b
+    Clean local branch.
+    It will always let user to confirm before remove.
+    By default, it will ignore current branch and branches with name master, dev, develop, trunk.
+    Because those branches are mostly used as trunk/release branches.
+    \b
+    """
+    Gitx().clb()
 
 
 @click.command(short_help="Commit all the indexed files")
@@ -239,7 +252,7 @@ def main():
 
 
 def all_commands():
-    return [a, amend, b, ci, cia, co, llg, m, p, pr, st, up]
+    return [a, amend, b, ci, cia, clb, co, llg, m, p, pr, st, up]
 
 
 for each in all_commands():

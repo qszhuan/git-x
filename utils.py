@@ -2,7 +2,7 @@
 import sys
 import subprocess
 import os
-from click import style, echo, secho, prompt
+from click import style, echo, prompt
 
 
 class Platform(object):
@@ -54,10 +54,12 @@ def open_url(url, exit_on_error=True):
 
 def call(command, exit_on_error=True):
     print_verbose('Exec [{}]'.format(command))
-    if subprocess.call(command, shell=True):
+    failed = subprocess.call(command, shell=True)
+    if failed:
         print_error("Error happened when running [{}]".format(command))
         if exit_on_error:
             exit()
+    return failed
 
 
 def popen(command):
@@ -101,6 +103,11 @@ def print_verbose(output):
 
 def print_prompt(output, type_=None):
     return prompt(style(output, fg='blue'), type=type_)
+
+
+def print_confirm(output, default=True):
+    suffix = "[{}{}]:".format('y'.upper() if default else 'y', 'n' if default else 'n'.upper())
+    return prompt(style(output, fg='yellow'), type=bool, default=default, show_default=False, prompt_suffix=suffix)
 
 
 def print_info(output):
