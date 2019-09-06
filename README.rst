@@ -74,6 +74,7 @@ It will output the help message, which showing all the available commands:
     b      Show current branch name
     ci     Commit all the indexed files
     cia    Add files into index and commit
+    clb    Clean merged local branch.
     co     Checkout/Create branch
     llg    Show recent <number> logs
     m      Merge codes from branch <from> to current branch
