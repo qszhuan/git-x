@@ -74,7 +74,7 @@ def b():
 def clb():
     """
     \b
-    Clean local branch.
+    Clean merged local branch.
     It will always let user to confirm before remove.
     By default, it will ignore current branch and branches with name master, dev, develop, trunk.
     Because those branches are mostly used as trunk/release branches.

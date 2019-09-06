@@ -21,6 +21,7 @@ List out all the available commands:
     b      Show current branch name
     ci     Commit all the indexed files
     cia    Add files into index and commit
+    clb    Clean merged local branch.
     co     Checkout/Create branch
     llg    Show recent <number> logs
     m      Merge codes from branch <from> to current branch
@@ -140,6 +141,24 @@ This is the description and example of this command:
   Options:
     -x, --exclude <pathspec>
     -h                        Show this message and exit.
+  
+git clb
+-------------------------------------------
+
+This is the description and example of this command:
+
+::
+
+  Usage: git-clb [OPTIONS]
+  
+    Clean merged local branch.
+    It will always let user to confirm before remove.
+    By default, it will ignore current branch and branches with name master, dev, develop, trunk.
+    Because those branches are mostly used as trunk/release branches.
+    
+  
+  Options:
+    -h  Show this message and exit.
   
 git co
 -------------------------------------------
