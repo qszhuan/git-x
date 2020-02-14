@@ -170,7 +170,6 @@ def co(start_point, b, f, branch):
             Found 1 branch exactly matching "develop":
             git co -b -f develop
     """
-    print(branch, b, f, start_point)
     Gitx().co(branch, start_point, b, f)
 
 
