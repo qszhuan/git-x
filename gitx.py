@@ -21,7 +21,7 @@ class Gitx:
         current_branch = self._current_branch()
         call("git push --set-upstream origin {}".format(current_branch))
 
-    def co(self, branch, start_point=None, create_if_not_existed=False):
+    def co(self, branch, start_point=None, create_if_not_existed=False, force=False):
         print_info('Checking out {} ... '.format(branch))
         create_option = " -b" if create_if_not_existed else ''
 
@@ -35,13 +35,16 @@ class Gitx:
                 print_info('Matched a branch {}'.format(matches[0]))
                 branch = matches[0]
             elif len(matches) > 1:
-                print_info('Found {} branches including {}:'.format(len(matches), quote(branch)))
-                print_info('='*20)
-                for index, each in enumerate(matches):
-                    print_info('{}: {}'.format(index, each))
-                print_info('='*20)
-                index = print_prompt('Please select branch by index', type_=int)
-                branch = matches[index]
+                if force and branch in matches:
+                    print_info('Found 1 branch exactly matching "{}":'.format(branch))
+                else:
+                    print_info('Found {} branches including {}:'.format(len(matches), quote(branch)))
+                    print_info('='*20)
+                    for index, each in enumerate(matches):
+                        print_info('{}: {}'.format(index, each))
+                    print_info('='*20)
+                    index = print_prompt('Please select branch by index', type_=int)
+                    branch = matches[index]
             else:
                 pass  # let git itself handle this.
 

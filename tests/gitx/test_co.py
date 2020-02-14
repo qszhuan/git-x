@@ -35,10 +35,25 @@ def test_co_with_partial_branch_name_but_unique(mock_call, mock_popen):
     mock_call.assert_called_once_with('git checkout master')
 
 
-@mock.patch('gitx.print_prompt', return_value=1)
+@mock.patch('gitx.popen')
+@mock.patch('gitx.call', return_value=0)
+def test_co_with_exactly_matched_branch_name_forcely(mock_call, mock_popen):
+    mock_popen.side_effect = lambda x: 'abc\n  click\n* master\n master2\n' if x == 'git branch' else 0
+    Gitx().co("master", force=True)
+    mock_call.assert_called_once_with('git checkout master')
+
+@mock.patch('gitx.print_prompt', return_value=0)
 @mock.patch('gitx.popen')
 @mock.patch('gitx.call', return_value=0)
 def test_co_with_partial_branch_name_but_not_unique(mock_call, mock_popen, _):
+    mock_popen.side_effect = lambda x: 'abc\n  click\n* master\n' if x == 'git branch' else 0
+    Gitx().co("a")
+    mock_call.assert_called_once_with('git checkout abc')
+
+@mock.patch('gitx.print_prompt', return_value=1)
+@mock.patch('gitx.popen')
+@mock.patch('gitx.call', return_value=0)
+def test_co_with_partial_branch_name_but_not_unique_2(mock_call, mock_popen, _):
     mock_popen.side_effect = lambda x: 'abc\n  click\n* master\n' if x == 'git branch' else 0
     Gitx().co("a")
     mock_call.assert_called_once_with('git checkout master')

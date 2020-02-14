@@ -125,9 +125,13 @@ def cia(comment, exclude):
               is_flag=True,
               show_default=True,
               help="Indicate to create the branch if it doesn't exist, same to '-B' option in 'git checkout' command.")
+@click.option('-f', metavar='force_create_with_name_provided', required=False,
+              is_flag=True,
+              show_default=False,
+              help="If set, checkout the branch directly without checking all brranches which name contains the <branch>")
 @click.argument('branch', metavar='<branch>')
 @click.argument('start_point', metavar='<start_point>', required=False)
-def co(start_point, b, branch):
+def co(start_point, b, f, branch):
     """
     \b
     Check out the branch matching the string in <branch>.
@@ -136,7 +140,7 @@ def co(start_point, b, branch):
     If '-b' is present, a new branch with name <branch> will be created.
     \b
     Examples:
-        Suppose we have 4 existing branches - master, develop, feature_1, feature_2
+        Suppose we have 5 existing branches - master, develop, feature_1, feature_2, develop1
         1. Switch to an existing branch 'develop'
             git co develop
         2. Create a new branch 'feature_3'
@@ -156,9 +160,18 @@ def co(start_point, b, branch):
             Please select branch by index:
             \b
             Then, the user can choose 0, click ENTER to switch to feature_1 branch.
+        5. Switch to a branch with -f option:
+            gi co develop -f
+            \b
+            if there is a branch name exactly matching 'develop', it will check out that branch,
+            no matter there are other branches with 'develop' in the name.
+            If there is not exactly matches, then follow the same logic without -f option
+            \b
+            Found 1 branch exactly matching "develop":
+            git co -b -f develop
     """
-    print(branch, b, start_point)
-    Gitx().co(branch, start_point, b)
+    print(branch, b, f, start_point)
+    Gitx().co(branch, start_point, b, f)
 
 
 @click.command(short_help="Show recent <number> logs", )
