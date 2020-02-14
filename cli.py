@@ -3,7 +3,7 @@ git-x - a set of handy git extensions.
 
 """
 
-__version__ = "0.3.1"
+__version__ = "0.3.2"
 __author__ = "Qingshan Zhuan"
 __license__ = "MIT"
 
@@ -170,7 +170,6 @@ def co(start_point, b, f, branch):
             Found 1 branch exactly matching "develop":
             git co -b -f develop
     """
-    print(branch, b, f, start_point)
     Gitx().co(branch, start_point, b, f)
 
 
