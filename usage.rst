@@ -175,7 +175,7 @@ This is the description and example of this command:
     If '-b' is present, a new branch with name <branch> will be created.
     
     Examples:
-        Suppose we have 4 existing branches - master, develop, feature_1, feature_2
+        Suppose we have 5 existing branches - master, develop, feature_1, feature_2, develop1
         1. Switch to an existing branch 'develop'
             git co develop
         2. Create a new branch 'feature_3'
@@ -195,10 +195,21 @@ This is the description and example of this command:
             Please select branch by index:
             
             Then, the user can choose 0, click ENTER to switch to feature_1 branch.
+        5. Switch to a branch with -f option:
+            gi co develop -f
+            
+            if there is a branch name exactly matching 'develop', it will check out that branch,
+            no matter there are other branches with 'develop' in the name.
+            If there is not exactly matches, then follow the same logic without -f option
+            
+            Found 1 branch exactly matching "develop":
+            git co -b -f develop
   
   Options:
     -b  Indicate to create the branch if it doesn't exist, same to '-B' option
         in 'git checkout' command.  [default: False]
+    -f  If set, checkout the branch directly without checking all brranches
+        which name contains the <branch>
     -h  Show this message and exit.
   
 git llg
