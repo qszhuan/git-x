@@ -319,14 +319,14 @@ This is the description and example of this command:
 ::
 
   Usage: git-co [OPTIONS] <branch> <start_point>
-
+  
     Check out the branch matching the string in <branch>.
     If multiple branches include the <branch> text, all those branches will be listed and let user to choose.
     This only works if '-b' is not present.
     If '-b' is present, a new branch with name <branch> will be created.
-
+    
     Examples:
-        Suppose we have 4 existing branches - master, develop, feature_1, feature_2
+        Suppose we have 5 existing branches - master, develop, feature_1, feature_2, develop1
         1. Switch to an existing branch 'develop'
             git co develop
         2. Create a new branch 'feature_3'
@@ -335,23 +335,34 @@ This is the description and example of this command:
             git co -b feature_3 32aa51b
         4. Switch to a branch with name like 'feature_*'
             gi co feature_
-
+            
             Then it will list all indexed branches with 'feature_' in the name, and let the user to choose:
-
+            
             Found 4 branches including "feature_":
             ====================
             0: feature_1
             1: feature_2
             ====================
             Please select branch by index:
-
+            
             Then, the user can choose 0, click ENTER to switch to feature_1 branch.
-
+        5. Switch to a branch with -f option:
+            gi co develop -f
+            
+            if there is a branch name exactly matching 'develop', it will check out that branch,
+            no matter there are other branches with 'develop' in the name.
+            If there is not exactly matches, then follow the same logic without -f option
+            
+            Found 1 branch exactly matching "develop":
+            git co -b -f develop
+  
   Options:
     -b  Indicate to create the branch if it doesn't exist, same to '-B' option
         in 'git checkout' command.  [default: False]
+    -f  If set, checkout the branch directly without checking all brranches
+        which name contains the <branch>
     -h  Show this message and exit.
-
+  
 git llg
 -------------------------------------------
 
