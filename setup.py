@@ -56,7 +56,7 @@ install_requires = [
 
 setup(
     name="git-x",
-    version=get_version(),
+    version=updateversion.get_version(),
     packages=find_packages(),
     install_requires=install_requires,
     tests_require=tests_require,
