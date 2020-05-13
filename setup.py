@@ -3,6 +3,7 @@ from setuptools.command.test import test as TestCommand
 
 import sys
 import cli
+import updateversion
 
 command_names = [each.name for each in cli.all_commands()]
 modules = ['cli', 'gitx', 'utils']
@@ -55,7 +56,7 @@ install_requires = [
 
 setup(
     name="git-x",
-    version=cli.__version__,
+    version=get_version(),
     packages=find_packages(),
     install_requires=install_requires,
     tests_require=tests_require,
