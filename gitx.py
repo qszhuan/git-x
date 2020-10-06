@@ -3,7 +3,7 @@
 import argparse
 from utils import *
 import os
-
+import re
 
 class Gitx:
     def __init__(self):
@@ -114,6 +114,12 @@ class Gitx:
             pr_url = "{}/compare/{}...{}?expand=1".format(remote_url, to_branch, current_branch)
         elif remote_url.find('bitbucket.org') >= 0:
             pr_url = "{}/compare/{}%0D{}".format(remote_url, current_branch, to_branch)
+        elif remote_url.find('dev.azure.com') >= 0:
+            pr_url = "{}/pullrequestcreate?sourceRef={}^&targetRef={}".format(remote_url, current_branch, to_branch)
+            p = re.compile('//.*@dev.azure.com')
+            print_info(pr_url)
+            pr_url = p.sub('//dev.azure.com', pr_url)
+            print_info(pr_url)
         else:
             raise Exception("Don't know how to generate the pull request url..")
 

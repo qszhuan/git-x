@@ -29,7 +29,7 @@ def quote(string):
 
 def start(command):
     if Platform.is_windows():
-        call("cmd /c start {}".format(command))
+        call("cmd /c \"start {}\"".format(command))
     elif Platform.is_mac():
         call("open {}".format(command))
     elif Platform.is_linux():
