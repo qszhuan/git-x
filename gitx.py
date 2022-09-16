@@ -50,6 +50,7 @@ class Gitx:
 
         command = 'git checkout{} {} {}'.format(create_option, branch, st_point).strip()
         call(command)
+        return branch
 
     def a(self, include, exclude):
         include_str = ' '.join([quote(each) for each in include]) if isinstance(include, list) else quote(include)
@@ -135,13 +136,13 @@ class Gitx:
 
         currentBranch = self._current_branch()
 
-        self.co(_from)
+        from_branch = self.co(_from)
         self.p()
         print_info("Go back to {}.".format(currentBranch))
         os.system('git checkout {}'.format(currentBranch))
 
-        print_info('Merging the latest code from {} to {} ...'.format(_from, currentBranch))
-        os.system("git merge {}".format(_from))
+        print_info('Merging the latest code from {} to {} ...'.format(from_branch, currentBranch))
+        os.system("git merge {}".format(from_branch))
 
     def b(self):
         self._current_branch()

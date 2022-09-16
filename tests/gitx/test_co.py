@@ -31,8 +31,9 @@ def test_co_ignore_start_point_if_not_create_new(mock_call):
 @mock.patch('gitx.call', return_value=0)
 def test_co_with_partial_branch_name_but_unique(mock_call, mock_popen):
     mock_popen.side_effect = lambda x: 'abc\n  click\n* master\n' if x == 'git branch' else 0
-    Gitx().co("ma")
+    branch = Gitx().co("ma")
     mock_call.assert_called_once_with('git checkout master')
+    assert branch == 'master'
 
 
 @mock.patch('gitx.popen')
