@@ -27,26 +27,9 @@ class Gitx:
 
         st_point = start_point if start_point and create_if_not_existed else ''
 
-        branches = [each.lstrip('*').strip() for each in popen('git branch').splitlines()]
-
         if not create_if_not_existed:
-            matches = [each for each in branches if branch in each]
-            if len(matches) == 1:
-                print_info('Matched a branch {}'.format(matches[0]))
-                branch = matches[0]
-            elif len(matches) > 1:
-                if force and branch in matches:
-                    print_info('Found 1 branch exactly matching "{}":'.format(branch))
-                else:
-                    print_info('Found {} branches including {}:'.format(len(matches), quote(branch)))
-                    print_info('='*20)
-                    for index, each in enumerate(matches):
-                        print_info('{}: {}'.format(index, each))
-                    print_info('='*20)
-                    index = print_prompt('Please select branch by index', type_=int)
-                    branch = matches[index]
-            else:
-                pass  # let git itself handle this.
+            branches = self._get_all_branches()
+            branch = self._get_branch_with_pattern(branches, branch, force)
 
         command = 'git checkout{} {} {}'.format(create_option, branch, st_point).strip()
         call(command)
@@ -100,6 +83,9 @@ class Gitx:
         if remote_url.endswith('.git'):
             remote_url = remote_url[:-4]
         current_branch = self._current_branch()
+        branches = self._get_all_branches()
+        to_branch = self._get_branch_with_pattern(branches, to_branch, False)
+
         if to_branch == current_branch:
             print_error("Can't create pull request against the same branch")
             exit()
@@ -152,16 +138,39 @@ class Gitx:
         print_info('Current branch: {}'.format(branch))
         return branch
 
+    def _get_all_branches(self):
+        local_branches = [each.lstrip('*').strip() for each in popen('git branch').splitlines()]
+        remote_branches = [each.strip().lstrip('origin/') for each in popen('git branch -r').splitlines() if not each.startswith('origin/HEAD')]
+        branches = dict.fromkeys(local_branches + remote_branches)
+        return branches
+
+    def _get_branch_with_pattern(self, branches, pattern, force):
+        matches = [each for each in branches if pattern in each]
+        if len(matches) == 1:
+            print_info('Matched a branch {}'.format(matches[0]))
+            branch = matches[0]
+            return branch
+        elif len(matches) > 1:
+            if force and pattern in matches:
+                print_info('Found 1 branch exactly matching "{}":'.format(pattern))
+                return pattern
+            else:
+                print_info('Found {} branches including {}:'.format(len(matches), quote(pattern)))
+                print_info('='*20)
+                for index, each in enumerate(matches):
+                    print_info('{}: {}'.format(index, each))
+                print_info('='*20)
+                index = print_prompt('Please select branch by index', type_=int)
+                branch = matches[index]
+                return branch
+        else:
+            return pattern # let git itself handle this.
+
     def _remote_url(self):
         cmd = "git config --get remote.origin.url"
         remote_url = popen(cmd)
         print_info('Remote origin url: {}'.format(remote_url))
         return remote_url
-
-    def _branches_with_name_like(self, str):
-        cmd = 'git branch'
-        branches = popen(cmd)
-        print(branches)
 
     def clb(self):
         current_branch = self._current_branch()
