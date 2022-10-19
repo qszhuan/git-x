@@ -1,42 +1,35 @@
-
 language: python
 python:
-  - "2.7"
-  - "3.4"
-  - "3.5"
-  - "3.6"
-  # does not have headers provided, please ask https://launchpad.net/~pypy/+archive/ppa
-  # maintainers to fix their pypy-dev package.
-  - "pypy"
+  - "nightly"
+  - "3.11"
+  - "3.10"
+  - "3.9"
+  - "3.8"
+  - "3.7"
+  - "pypy3"
 
 matrix:
   allow_failures:
     - os: osx
   include:
-    - name: "Python 3.7 on Xenial Linux"
-      python: 3.7           # this works for Linux but is ignored on macOS or Windows
-      dist: xenial          # required for Python >= 3.7
-    - name: "Python 3.7-dev on Xenial Linux"
-      python: 3.7-dev          # this works for Linux but is ignored on macOS or Windows
-      dist: xenial          # required for Python >= 3.7
-    - name: "Python 3.8-dev on Xenial Linux"
-      python: 3.8-dev           # this works for Linux but is ignored on macOS or Windows
-      dist: xenial          # required for Python >= 3.7
+    - name: "Python 3.11 on Xenial Linux"
+      python: 3.11 # this works for Linux but is ignored on macOS or Windows
+      dist: xenial # required for Python >= 3.7
     - name: "Python nightly on Xenial Linux"
-      python: nightly           # this works for Linux but is ignored on macOS or Windows
-      dist: xenial          # required for Python >= 3.7
+      python: nightly # this works for Linux but is ignored on macOS or Windows
+      dist: xenial # required for Python >= 3.7
     - os: osx
       osx_image: xcode8
-      python: 3.7
+      python: 3.11
     - os: osx
       osx_image: xcode9
-      python: 3.7
+      python: 3.11
     - os: osx
       osx_image: xcode10
-      python: 3.7
+      python: 3.11
     - os: osx
       osx_image: xcode11
-      python: 3.7
+      python: 3.11
 
 # command to install dependencies
 install:
