@@ -6,7 +6,7 @@ name: Upload Python Package
 on:
   release:
     types: [created]
-
+    
 jobs:
   deploy:
 
@@ -25,6 +25,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Build and publish
       env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}
         TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
