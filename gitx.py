@@ -141,7 +141,7 @@ class Gitx:
     def _get_all_branches(self):
         local_branches = [each.lstrip('*').strip() for each in popen('git branch').splitlines()]
         remote_branches = [each.strip().lstrip('origin/') for each in popen('git branch -r').splitlines() if not each.startswith('origin/HEAD')]
-        branches = set(local_branches + remote_branches)
+        branches = dict.fromkeys(local_branches + remote_branches)
         return branches
 
     def _get_branch_with_pattern(self, branches, pattern, force):
