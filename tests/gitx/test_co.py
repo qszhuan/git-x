@@ -70,6 +70,15 @@ def test_co_with_partial_branch_name_but_not_unique(mock_call, mock_popen, _):
 @mock.patch('gitx.call', return_value=0)
 def test_co_with_partial_branch_name_but_not_unique_2(mock_call, mock_popen, _):
     mock_popen.side_effect = lambda x: 'abc\n  click\n* master\n' if x == 'git branch' else (
-        'origin/HEAD -> origin/master \n origin/master \n' if x == 'git branch -r' else 0)
+        '  origin/HEAD -> origin/master \n origin/master \n' if x == 'git branch -r' else 0)
     Gitx().co("a")
     mock_call.assert_called_once_with('git checkout master')
+
+@mock.patch('gitx.print_prompt', return_value=1)
+@mock.patch('gitx.popen')
+@mock.patch('gitx.call', return_value=0)
+def test_co_with_dot_as_the_branch_name(mock_call, mock_popen, _):
+    mock_popen.side_effect = lambda x: 'a.b.c\n  click\n* master\n' if x == 'git branch' else (
+        'origin/HEAD -> origin/master \n origin/master \n' if x == 'git branch -r' else 0)
+    Gitx().co(".")
+    mock_call.assert_called_once_with('git checkout .')
