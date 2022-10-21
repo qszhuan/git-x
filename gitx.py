@@ -27,7 +27,7 @@ class Gitx:
 
         st_point = start_point if start_point and create_if_not_existed else ''
 
-        if not create_if_not_existed:
+        if not create_if_not_existed and branch != '.':
             branches = self._get_all_branches()
             branch = self._get_branch_with_pattern(branches, branch, force)
 
@@ -140,7 +140,7 @@ class Gitx:
 
     def _get_all_branches(self):
         local_branches = [each.lstrip('*').strip() for each in popen('git branch').splitlines()]
-        remote_branches = [each.strip().lstrip('origin/') for each in popen('git branch -r').splitlines() if not each.startswith('origin/HEAD')]
+        remote_branches = [each.strip().lstrip('origin/') for each in popen('git branch -r').splitlines() if 'origin/HEAD' not in each]
         branches = dict.fromkeys(local_branches + remote_branches)
         return branches
 
